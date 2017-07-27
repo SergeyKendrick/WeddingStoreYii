@@ -15,6 +15,8 @@ class Model extends \yii\base\Module
     /**
      * @inheritdoc
      */
+    public $layout = '/admin';
+    
     public function init()
     {
         parent::init();
