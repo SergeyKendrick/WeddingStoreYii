@@ -56,6 +56,7 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $model['category_id'] = $model->category->title;
         
+            
         return $this->render('view', [
             'model' => $model,
         ]);
