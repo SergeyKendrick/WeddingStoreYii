@@ -14,6 +14,8 @@ class m170727_101819_create_discounts_table extends Migration
     {
         $this->createTable('discounts', [
             'id' => $this->primaryKey(),
+            'code'=> $this->string(),
+            'discount' => $this->integer(),
         ]);
     }
 

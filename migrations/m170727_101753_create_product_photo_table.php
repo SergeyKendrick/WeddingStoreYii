@@ -14,6 +14,8 @@ class m170727_101753_create_product_photo_table extends Migration
     {
         $this->createTable('product_photo', [
             'id' => $this->primaryKey(),
+            'product_id' => $this->integer(),
+            'file_path' => $this->string(),
         ]);
     }
 
