@@ -5,9 +5,11 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Product;
 use app\models\ProductSearch;
+use app\models\Category;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -51,8 +53,11 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model['category_id'] = $model->category->title;
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -65,7 +70,7 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveProduct()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -104,6 +109,28 @@ class ProductController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionSetCategory($id) 
+    {
+        $product = $this->findModel($id);
+        
+        $categories = ArrayHelper::map(Category::find()->all(), 'id', 'title');
+        $selectedCategory = $product->category->id;
+        
+        if(Yii::$app->request->isPost) {
+            $category = Yii::$app->request->post('Category');
+            
+            if($product->saveCategory($category)) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+        }
+        
+        return $this->render('category', [
+            'model' => $product,
+            'categories' => $categories,
+            'selectedCategory' => $selectedCategory,
+        ]);
     }
 
     /**

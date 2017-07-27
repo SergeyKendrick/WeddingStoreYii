@@ -54,22 +54,40 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'sku' => 'Sku',
-            'title' => 'Title',
-            'category_id' => 'Category ID',
-            'description' => 'Description',
-            'price' => 'Price',
-            'brand' => 'Brand',
-            'pearl_type' => 'Pearl Type',
-            'color' => 'Color',
-            'base_material' => 'Base Material',
-            'precious_artif' => 'Precious Artif',
-            'model_number' => 'Model Number',
-            'occasion' => 'Occasion',
-            'type' => 'Type',
-            'ideal_for' => 'Ideal For',
-            'discount' => 'Discount',
-            'rating_id' => 'Rating ID',
+            'sku' => 'Артикул',
+            'title' => 'Заголовок',
+            'category_id' => 'Категория',
+            'description' => 'Описание',
+            'price' => 'Цена',
+            'brand' => 'Бренд',
+            'pearl_type' => 'Тип жемчуга',
+            'color' => 'Цена',
+            'base_material' => 'Материал',
+            'precious_artif' => 'Драгоценный/искусственный',
+            'model_number' => 'Номер модели',
+            'occasion' => 'Повод применения',
+            'type' => 'Тип',
+            'ideal_for' => 'Идеален для..',
+            'discount' => 'Скидка',
+            'rating_id' => 'Рейтинг',
         ];
+    }
+    
+    public function getCategory() {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+    
+    public function saveProduct() {
+        $this->date = date('Y-m-d');
+        return $this->save();
+    }
+    
+    public function saveCategory($category_id) {
+        $category = Category::findOne($category_id);
+        
+        if($category) {
+            $this->link('category', $category);
+            return true;
+        }
     }
 }
