@@ -42,6 +42,8 @@ class ProductSearch extends Product
     public function search($params)
     {
         $query = Product::find();
+        
+
 
         // add conditions that should always apply here
 
@@ -80,5 +82,9 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'ideal_for', $this->ideal_for]);
 
         return $dataProvider;
+    }
+    
+    public function getCategoryTitle() {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 }

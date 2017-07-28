@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Product;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$product = new Product;
 $this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,12 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'sku',
             'title',
-            'category_id',
             'description:ntext',
-            // 'price',
+            'price',
+            'category_id' =>
+            [
+                'header' => 'Категория',
+                'value' => function ($data) {
+                    return $data->category->title;
+                }
+            ],
             // 'brand',
             // 'pearl_type',
             // 'color',
