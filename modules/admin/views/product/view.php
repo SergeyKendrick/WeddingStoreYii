@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap\Tabs;
+use app\models\Product;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -11,6 +12,17 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .imgProductBox {
+        position: relative; display: inline-block; margin-right: 10px;
+    }
+    a.delete-link {
+        display: inline-block; position: absolute; right: 0; padding: 8px 5px; transition: .5s; opacity: 0; border-radius: 4px; text-decoration: none;  background: rgba(210,210,210, .5);
+    }
+    .imgProductBox:hover a.delete-link {
+        opacity: 1;
+    }
+</style>
 <div class="product-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -18,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Сменить изображения', ['set-images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -28,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     
     <?php 
+    
     $tab1 = DetailView::widget([
         'model' => $model,
         'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => 'Не указано'],
@@ -56,6 +70,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'rating_id',
         ],
     ]);
+    
+    if($img) {
+        foreach($img as $photo) {
+            $blocks = $blocks.
+                "<div class='imgProductBox'>".
+                    Html::a('Удалить', ['delete-image', 'id' => $model->id, 'filename' => $photo], [
+                        'class' => 'delete-link',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post',
+                        ],
+                    ])."<img width='200px' src='$path"."$photo'></div>";
+        }
+    } else {
+        $blocks = "Изображения для этого товара отсутствуют.";
+    }
+        
+    $tab3 = $blocks;
+        
     ?>
     
     <?=Tabs::widget([
@@ -69,6 +102,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Дополнительные свойства',
                 'content' => $tab2,
+            ],
+            [
+                'label' => 'Изображения',
+                'content' => $tab3,
             ],
                       
         ],

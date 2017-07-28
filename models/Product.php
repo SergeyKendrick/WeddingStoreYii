@@ -73,6 +73,35 @@ class Product extends \yii\db\ActiveRecord
         ];
     }
     
+    public function saveImageFile($filename, $currentImage) {
+        
+        $this->deleteCurrentImage($currentImage);
+        
+        $this->image = $filename;
+        
+        return $this->save(false); //Передаем false чтобы не проходить валидацию самой статьи
+         
+    }
+    
+    public function deleteCurrentImage($currentImage) {
+        if(file_exists(Yii::getAlias('@web').'images/products/' . $currentImage) && $currentImage) {
+            unlink(Yii::getAlias('@web').'images/products/' . $currentImage);
+        }
+    }
+    
+    public function deleteImage($filename) {
+
+        $this->deleteCurrentImage($filename);
+    }
+    
+    public function afterDelete() {
+        $this->deleteImage();
+    }
+    
+    public function getImages($id) {
+        return ProductPhoto::find()->select('filename')->where(['product_id' => $id])->asArray()->all();
+    }
+    
     public function saveProduct() {
         $this->date = date('Y-m-d');
         return $this->save();

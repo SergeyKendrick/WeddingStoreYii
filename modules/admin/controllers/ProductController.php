@@ -6,10 +6,14 @@ use Yii;
 use app\models\Product;
 use app\models\ProductSearch;
 use app\models\Category;
+use app\models\ProductPhoto;
+use app\models\ImageUpload;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -57,9 +61,17 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $model['category_id'] = $model->category->title;
         
+        $product = new Product;
+        $path = ImageUpload::getFolderProductForView();
+        $photos = $product->getImages($id);
+        foreach($photos as $photo) {
+            $img[] = $photo['filename'];
+        }
             
         return $this->render('view', [
             'model' => $model,
+            'img' => $img,
+            'path' => $path,
         ]);
     }
 
@@ -133,6 +145,43 @@ class ProductController extends Controller
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
         ]);
+    }
+    
+    public function actionSetImages($id) {
+        $product = $this->findModel($id);
+        $model = new ImageUpload;
+        
+        $path = ImageUpload::getFolderProductForView();
+        $photos = $product->getImages($id);
+        foreach($photos as $photo) {
+            $img[] = $photo['filename'];
+        }
+        
+        if(Yii::$app->request->isPost) {
+            $savePhoto = new ProductPhoto;
+            
+            $product->getImages($id);
+            
+            $imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            
+            if($savePhoto->saveImages($product, $imageFiles)) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+        }
+        
+        return $this->render('images', ['model' => $model, 'img' => $img, 'path' => $path]);
+        
+    }
+    
+    public function actionDeleteImage($id, $filename) {
+        $product = new Product;
+        $productPhoto = new ProductPhoto;
+        
+        $productPhoto->deleteImage($filename);
+        $product->deleteImage($filename);
+        
+        return $this->redirect(['view', 'id' => $id]);
+        
     }
 
     /**

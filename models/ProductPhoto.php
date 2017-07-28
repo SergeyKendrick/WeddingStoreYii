@@ -43,4 +43,36 @@ class ProductPhoto extends \yii\db\ActiveRecord
             'file_path' => 'File Path',
         ];
     }
+    
+    public function saveImages($product_id, $files) {
+        
+        $imageCount = $this->find()->where(['product_id' => $product_id])->count();
+    
+        $this->product_id = $product_id;
+        
+        $imageUpload = new ImageUpload;
+        
+        if($imageCount >= 4) {
+            return false;
+        }
+
+        $this->filename = $files;
+        
+        foreach($files as $file) {
+            $this->id = false;
+            $this->isNewRecord = true;
+    
+            $this->filename = $imageUpload->uploadFileProduct($file);
+            
+            $this->save(false);
+        }
+        
+        return true;
+    }
+    
+    public function deleteImage($filename) {
+        $photo = ProductPhoto::find()->where(['filename' => $filename])->one();
+        return $photo->delete();
+        
+    }
 }
