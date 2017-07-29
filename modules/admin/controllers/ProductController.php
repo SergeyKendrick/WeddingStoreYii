@@ -62,7 +62,6 @@ class ProductController extends Controller
         $model['category_id'] = $model->category->title;
         if($model['discount']) {
             $model['price'] = $model['price'] - $model['price']/100*$model['discount']." (Основная цена: ".$model['price'].")";
-            $model['discount'] = $model['discount']."%";
         }
         
         $product = new Product;

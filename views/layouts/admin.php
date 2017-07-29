@@ -46,6 +46,10 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+    
+    <div class="popup-box">
+        <div class="popup"><img src="" alt=""></div>
+    </div>
 
     <div class="container">
         <?= Breadcrumbs::widget([

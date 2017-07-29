@@ -68,7 +68,7 @@ class Product extends \yii\db\ActiveRecord
             'occasion' => 'Повод применения',
             'type' => 'Тип',
             'ideal_for' => 'Идеален для..',
-            'discount' => 'Скидка',
+            'discount' => 'Скидка (%)',
             'rating_id' => 'Рейтинг',
         ];
     }

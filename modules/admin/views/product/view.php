@@ -17,10 +17,33 @@ $this->params['breadcrumbs'][] = $this->title;
         position: relative; display: inline-block; margin-right: 10px;
     }
     a.delete-link {
-        display: inline-block; position: absolute; right: 0; padding: 8px 5px; transition: .5s; opacity: 0; border-radius: 4px; text-decoration: none;  background: rgba(210,210,210, .5);
+        display: inline-block; position: absolute; right: 0; padding: 8px 5px; transition: .5s; opacity: 0; border-radius: 4px; text-decoration: none;  background: rgba(210,210,210, .5); 
     }
     .imgProductBox:hover a.delete-link {
         opacity: 1;
+        cursor: pointer;
+    }
+    
+    div.popup-box {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        background: rgba(0,0,0, 0.7);
+        text-align: center;
+    }
+    
+    div.popup-box > div.popup {
+        margin-top: 3%;
+        width: 50%;
+        height: 90%;
+        display: inline-block;
+        background: #fff;
+    }
+    div.popup-box > div.popup img {
+        width: 100%;
+        height: 100%;
     }
 </style>
 <div class="product-view">
@@ -81,7 +104,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'confirm' => 'Вы действительно уверены в удалении изображения?',
                             'method' => 'post',
                         ],
-                    ])."<img width='200px' src='$path"."$photo'></div>";
+                    ]).
+                    "<img width='200px' src='$path"."$photo'></div>";
         }
     } else {
         $blocks = "Изображения для этого товара отсутствуют.";
