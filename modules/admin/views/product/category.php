@@ -8,7 +8,21 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="product-search">
+<style>
+    form {
+        display: inline-block;
+        margin: 0 auto;
+        width: 30%;
+    }
+    
+    button {
+        margin-top: 20px;
+        width: 100px;
+    }
+</style>
+
+<div class="product-search" style="text-align: center;">
+    <h3>Изменение категории товара</h3>
     <?php $form = ActiveForm::begin(); ?>
 
     <?=Html::dropDownList('Category',$selectedCategory, $categories, ['class' => 'form-control']) ?>

@@ -94,10 +94,6 @@ class Product extends \yii\db\ActiveRecord
         $this->deleteCurrentImage($filename);
     }
     
-    public function afterDelete() {
-        $this->deleteImage();
-    }
-    
     public function getImages($id) {
         return ProductPhoto::find()->select('filename')->where(['product_id' => $id])->asArray()->all();
     }

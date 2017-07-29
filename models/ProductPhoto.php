@@ -64,6 +64,36 @@ class ProductPhoto extends \yii\db\ActiveRecord
         return true;
     }
     
+    public function deleteAllImages($product_id) {
+        $filenames = $this->find()->select('filename')->where(['product_id' => $product_id])->asArray()->all();
+        
+        if(!$filenames) {
+            return true;
+        }
+        
+        $product = new Product;
+        
+        foreach ($filenames as $file) {
+            $photo = $file['filename'];
+            $this->deleteImageFromFolder($photo);
+        }
+        
+        $this->deleteAllImageFromTable($product_id);
+        
+        return true;
+    }
+    
+    public function deleteImageFromFolder($currentImage) {
+        if(file_exists(Yii::getAlias('@web').'images/products/' . $currentImage) && $currentImage) {
+            unlink(Yii::getAlias('@web').'images/products/' . $currentImage);
+        }
+        return true;
+    }
+    
+    public function deleteAllImageFromTable($product_id) {
+        return $this->deleteAll(['product_id' => $product_id]);
+    }
+    
     public function checkCountImages($product_id) {
         return $this->find()->where(['product_id' => $product_id])->count();
     }

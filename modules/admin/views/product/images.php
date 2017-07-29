@@ -8,19 +8,31 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-form">
+<style>
+    form {
+        display: inline-block;
+        margin: 0 auto;
+    }
+    
+    button {
+        width: 150px;
+    }
+</style>
+
+<div class="article-form" style="text-align: center;">
+    <h3>Добавление изображений для товара</h3>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         if($message) {
             echo $message;
         }
     ?>
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'maxFiles' => 4]) ?>
+    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'maxFiles' => 4])->label('') ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Добавить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

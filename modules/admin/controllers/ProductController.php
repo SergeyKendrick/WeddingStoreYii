@@ -124,6 +124,10 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
+        $productPhoto = new ProductPhoto;
+        
+        $productPhoto->deleteAllImages($id);
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -162,8 +166,6 @@ class ProductController extends Controller
             $img[] = $photo['filename'];
         }
         
-        
-        
         if(Yii::$app->request->isPost) {
             $savePhoto = new ProductPhoto;
             
@@ -178,7 +180,7 @@ class ProductController extends Controller
                 return $this->render('images', ['model' => $model, 'img' => $img, 'path' => $path, 'message' => $message]);
             }
             
-            if($savePhoto->saveImages($product, $imageFiles)) {
+            if($savePhoto->saveImages($product->id, $imageFiles)) {
                 return $this->redirect(['view', 'id' => $product->id]);
             }
         }
