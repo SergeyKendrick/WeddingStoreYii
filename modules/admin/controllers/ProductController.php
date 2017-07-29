@@ -60,6 +60,10 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
         $model['category_id'] = $model->category->title;
+        if($model['discount']) {
+            $model['price'] = $model['price'] - $model['price']/100*$model['discount']." (Основная цена: ".$model['price'].")";
+            $model['discount'] = $model['discount']."%";
+        }
         
         $product = new Product;
         $path = ImageUpload::getFolderProductForView();
@@ -150,6 +154,7 @@ class ProductController extends Controller
     public function actionSetImages($id) {
         $product = $this->findModel($id);
         $model = new ImageUpload;
+        $savePhoto = new ProductPhoto;
         
         $path = ImageUpload::getFolderProductForView();
         $photos = $product->getImages($id);
@@ -157,12 +162,21 @@ class ProductController extends Controller
             $img[] = $photo['filename'];
         }
         
+        
+        
         if(Yii::$app->request->isPost) {
             $savePhoto = new ProductPhoto;
             
-            $product->getImages($id);
-            
+            $countImages = $savePhoto->checkCountImages($id);
+            $result = 4 - $countImages;
+
             $imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            $countUpload = $product->checkCountUploads($imageFiles);
+
+            if($result < $countUpload) {
+                $message = "<p style='color: red;'>Ошибка!<br>Превышение максимально возможного числа загрузки.</p>";
+                return $this->render('images', ['model' => $model, 'img' => $img, 'path' => $path, 'message' => $message]);
+            }
             
             if($savePhoto->saveImages($product, $imageFiles)) {
                 return $this->redirect(['view', 'id' => $product->id]);

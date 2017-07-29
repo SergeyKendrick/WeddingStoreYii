@@ -12,10 +12,12 @@ class ImageUpload extends Model {
     
     public $image;
     
+    public $count = 4;
+    
     public function rules() {
         return [
             [['image'], 'required'],
-            [['image'], 'file', 'extensions' => 'jpg,png', 'maxFiles' => 4]
+            [['image'], 'file', 'extensions' => 'jpg,png',]
         ];
     }
     

@@ -30,11 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
-        <?= Html::a('Сменить изображения', ['set-images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Добавить изображения', ['set-images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно уверены в удалении продукта?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     Html::a('Удалить', ['delete-image', 'id' => $model->id, 'filename' => $photo], [
                         'class' => 'delete-link',
                         'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
+                            'confirm' => 'Вы действительно уверены в удалении изображения?',
                             'method' => 'post',
                         ],
                     ])."<img width='200px' src='$path"."$photo'></div>";

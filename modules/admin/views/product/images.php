@@ -9,10 +9,14 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="article-form">
-
+    <?php
+        if($message) {
+            echo $message;
+        }
+    ?>
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'maxFiles' => 4]) ?>
 
 
     <div class="form-group">

@@ -102,6 +102,16 @@ class Product extends \yii\db\ActiveRecord
         return ProductPhoto::find()->select('filename')->where(['product_id' => $id])->asArray()->all();
     }
     
+    public function checkCountUploads($files) {
+        $i = 0;
+        
+        foreach($files as $file) {
+            $i++;
+        }
+        
+        return $i;
+    }
+    
     public function saveProduct() {
         $this->date = date('Y-m-d');
         return $this->save();

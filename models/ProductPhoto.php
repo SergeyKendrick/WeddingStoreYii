@@ -45,16 +45,10 @@ class ProductPhoto extends \yii\db\ActiveRecord
     }
     
     public function saveImages($product_id, $files) {
-        
-        $imageCount = $this->find()->where(['product_id' => $product_id])->count();
     
         $this->product_id = $product_id;
         
         $imageUpload = new ImageUpload;
-        
-        if($imageCount >= 4) {
-            return false;
-        }
 
         $this->filename = $files;
         
@@ -68,6 +62,10 @@ class ProductPhoto extends \yii\db\ActiveRecord
         }
         
         return true;
+    }
+    
+    public function checkCountImages($product_id) {
+        return $this->find()->where(['product_id' => $product_id])->count();
     }
     
     public function deleteImage($filename) {
