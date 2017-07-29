@@ -64,6 +64,27 @@ class ProductPhoto extends \yii\db\ActiveRecord
         return true;
     }
     
+    public function checkCountImg($id, $imageFiles) {
+        $product = new Product;
+        $countImages = $this->checkCountImages($id);
+        $result = 4 - $countImages;
+        $countUpload = $product->checkCountUploads($imageFiles);
+        $message = "<p style='color: red;'>Ошибка!<br>Превышение максимально возможного числа загрузки.</p>";
+        if($result < $countUpload) {
+            return $message;
+        } else {
+            return false;
+        }
+    }
+    
+    public function deleteAllImageFromTable($product_id) {
+        return $this->deleteAll(['product_id' => $product_id]);
+    }
+    
+    public function checkCountImages($product_id) {
+        return $this->find()->where(['product_id' => $product_id])->count();
+    }
+    
     public function deleteAllImages($product_id) {
         $filenames = $this->find()->select('filename')->where(['product_id' => $product_id])->asArray()->all();
         
@@ -88,14 +109,6 @@ class ProductPhoto extends \yii\db\ActiveRecord
             unlink(Yii::getAlias('@web').'images/products/' . $currentImage);
         }
         return true;
-    }
-    
-    public function deleteAllImageFromTable($product_id) {
-        return $this->deleteAll(['product_id' => $product_id]);
-    }
-    
-    public function checkCountImages($product_id) {
-        return $this->find()->where(['product_id' => $product_id])->count();
     }
     
     public function deleteImage($filename) {

@@ -161,22 +161,14 @@ class ProductController extends Controller
         $savePhoto = new ProductPhoto;
         
         $path = ImageUpload::getFolderProductForView();
-        $photos = $product->getImages($id);
-        foreach($photos as $photo) {
-            $img[] = $photo['filename'];
-        }
+        $img = $product->getImagesArray($id);
         
         if(Yii::$app->request->isPost) {
             $savePhoto = new ProductPhoto;
-            
-            $countImages = $savePhoto->checkCountImages($id);
-            $result = 4 - $countImages;
-
             $imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-            $countUpload = $product->checkCountUploads($imageFiles);
-
-            if($result < $countUpload) {
-                $message = "<p style='color: red;'>Ошибка!<br>Превышение максимально возможного числа загрузки.</p>";
+            
+            if($savePhoto->checkCountImg($id, $imageFiles)) {
+                $message = $savePhoto->checkCountImg($id, $imageFiles);
                 return $this->render('images', ['model' => $model, 'img' => $img, 'path' => $path, 'message' => $message]);
             }
             

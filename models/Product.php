@@ -98,6 +98,15 @@ class Product extends \yii\db\ActiveRecord
         return ProductPhoto::find()->select('filename')->where(['product_id' => $id])->asArray()->all();
     }
     
+    public function getImagesArray($id) {
+        $photos = ProductPhoto::find()->select('filename')->where(['product_id' => $id])->asArray()->all();
+        foreach($photos as $photo) {
+            $img[] = $photo['filename'];
+        }
+        
+        return $img;
+    }
+    
     public function checkCountUploads($files) {
         $i = 0;
         
