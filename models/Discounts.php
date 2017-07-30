@@ -39,8 +39,8 @@ class Discounts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'code' => 'Code',
-            'discount' => 'Discount',
+            'code' => 'Код',
+            'discount' => 'Скидка по купону(%)',
         ];
     }
 }

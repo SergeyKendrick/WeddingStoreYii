@@ -1,6 +1,28 @@
+<?php 
+
+$this->title = 'Wedding store';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
 <?php
 
 /* @var $this yii\web\View */
+
+/*
 
 $this->title = 'My Yii Application';
 ?>
@@ -51,3 +73,4 @@ $this->title = 'My Yii Application';
 
     </div>
 </div>
+ */

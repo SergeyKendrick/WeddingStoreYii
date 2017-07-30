@@ -51,8 +51,10 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -104,6 +106,15 @@ class UserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionMakeAdmin($id) {
+        $model = $this->findModel($id);
+        $user = new User;
+        $model['isAdmin'] = $user->admin($model);
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->id]);
     }
 
     /**

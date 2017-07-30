@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         opacity: 1;
         cursor: pointer;
     }
-    
     div.popup-box {
         display: none;
         position: fixed;
@@ -33,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
         background: rgba(0,0,0, 0.7);
         text-align: center;
     }
-    
     div.popup-box > div.popup {
         margin-top: 3%;
         width: 50%;

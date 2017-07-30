@@ -34,6 +34,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['sex', 'isAdmin'], 'integer'],
             [['first_name', 'last_name', 'email', 'mobile', 'password'], 'string', 'max' => 255],
+            [['email'], 'email'],
         ];
     }
 
@@ -44,13 +45,25 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
             'email' => 'Email',
-            'mobile' => 'Mobile',
-            'sex' => 'Sex',
-            'password' => 'Password',
-            'isAdmin' => 'Is Admin',
+            'mobile' => 'Телефон',
+            'sex' => 'Пол',
+            'password' => 'Пароль',
+            'isAdmin' => 'Это админ?',
         ];
+    }
+    
+    public function admin($id) {
+        $user = User::findOne($id);
+    
+        
+        if($user['isAdmin']) {
+            return $this->isAdmin = 0;
+        } else {
+            return $this->isAdmin = 1;
+        }
+     
     }
 }
