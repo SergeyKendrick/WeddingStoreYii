@@ -8,11 +8,209 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<html>
+<head>
+<title><?= Html::encode($this->title) ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?= Html::csrfMetaTags() ?>
+<?php $this->head() ?>
+</head>
+<body>
+<?php $this->beginBody() ?>
+<div class="top_bg">
+	<div class="container">
+		<div class="header_top-sec">
+			<div class="top_right">
+				<ul>
+					<li><a href="#">Помощь</a></li>|
+					<li><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>|
+					<li><a href="login.html">Ослеживание заказа</a></li>
+				</ul>
+			</div>
+			<div class="top_left">
+				<ul>
+					<li class="top_link">Email:<a href="mailto:info@example.com">admin@weddingstore.com</a></li>|
+					<li class="top_link"><a href="login.html">Мой аккаунт</a></li>					
+				</ul>
+			</div>
+				<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<div class="header-top">
+	 <div class="header-bottom">
+		 <div class="container">			
+            <div class="logo">
+                <a href="index.html"><h1>Wedding Store</h1></a>
+            </div>
+            <div class="top-nav">
+                <ul class="memenu skyblue">
+                    <li class="active"><a href="index.html">Главная</a></li>
+                    <li class="grid"><a href="#">Свадьба</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <ul>
+                                        <li><a href="product.html">Новые платья</a></li>
+                                        <li><a href="product.html">Мужская одежда</a></li>
+                                        <li><a href="product.html">Женская одежда</a></li>
+                                        <li><a href="product.html">Аксуссуары</a></li>
+                                        <li><a href="product.html">Детская одежда</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid"><a href="#">Украшения</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <ul>
+                                        <li><a href="product.html">Мужские украшения</a></li>
+                                        <li><a href="product.html">Женские украшения</a></li>
+                                        <li><a href="product.html">Украшения для детей</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid"><a href="typo.html">Бренды</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <h4>Популярные бренды</h4>
+                                    <ul>
+                                        <li><a href="product.html">Levis</a></li>
+                                        <li><a href="product.html">Persol</a></li>
+                                        <li><a href="product.html">Nike</a></li>
+                                        <li><a href="product.html">Edwin</a></li>
+                                        <li><a href="product.html">New Balance</a></li>
+                                        <li><a href="product.html">Jack & Jones</a></li>
+                                        <li><a href="product.html">Paul Smith</a></li>
+                                        <li><a href="product.html">Ray-Ban</a></li>
+                                        <li><a href="product.html">Wood Wood</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>
+</ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="cart box_1">
+                <a href="checkout.html">
+                    <h3> <div class="total">
+                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)</div>
+                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></h3>
+                </a>
+                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+             <!---->			 
+            </div>
+            <div class="clearfix"> </div>
+	  </div>
+</div>
+<div class="container">
+    <?=$content; ?>
+</div>
+<div class="shoping">
+	 <div class="container">
+		 <div class="shpng-grids">
+			 <div class="col-md-4 shpng-grid">
+				 <h3>Подарок</h3>
+				 <p>на сумму заказа выше $999</p>
+			 </div>
+			 <div class="col-md-4 shpng-grid">
+				 <h3>Возврат заказа</h3>
+				 <p>Возврат заказа в течение 14 дней</p>
+			 </div>
+			 <div class="col-md-4 shpng-grid">
+				 <h3>Скидки</h3>
+				 <p>В магазине дейстуют постоянные скидки</p>
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>
+	 </div>
+</div>
+<!---->
+<div class="footer">
+	 <div class="container">
+		 <div class="ftr-grids">
+			 <div class="col-md-3 ftr-grid">
+				 <h4>О нас</h4>
+				 <ul>
+					 <li><a href="#">Кто мы</a></li>
+					 <li><a href="contact.html">Обратная связь</a></li>
+					 <li><a href="#">Наши сайте</a></li>
+					 <li><a href="#">Новости</a></li>
+					 <li><a href="#">Команда</a></li>
+					 <li><a href="#">Вакансии</a></li>					 
+				 </ul>
+			 </div>
+			 <div class="col-md-3 ftr-grid">
+				 <h4>Сервис</h4>
+				 <ul>
+					 <li><a href="#">FAQ</a></li>
+					 <li><a href="#">Покупки</a></li>
+					 <li><a href="#">Cancellation</a></li>
+					 <li><a href="#">Возврат</a></li>					 
+				 </ul>
+			 </div>
+			 <div class="col-md-3 ftr-grid">
+				 <h4>Ваш аккаунт</h4>
+				 <ul>
+					 <li><a href="account.html">Ваш аккаунт</a></li>
+					 <li><a href="#">Персональная информация</a></li>
+					 <li><a href="#">Адреса</a></li>
+					 <li><a href="#">Дисконт</a></li>
+					 <li><a href="#">Отследить заказ</a></li>					 					 
+				 </ul>
+			 </div>
+			 <div class="col-md-3 ftr-grid">
+				 <h4>Категории</h4>
+				 <ul>
+					 <li><a href="#">Свадьба</a></li>
+					 <li><a href="#">Jewellerys</a></li>
+					 <li><a href="#">Shoes</a></li>
+					 <li><a href="#">Flowers</a></li>
+					 <li><a href="#">Торты</a></li>
+					 <li><a href="#">Больше...</a></li>					 
+				 </ul>
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>		
+	 </div>
+</div>
+<!---->
+ <div class="copywrite">
+	 <div class="container">
+         <p>Copyright © 2015 Wedding Store. All Rights Reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+     </div>
+</div>            
+            
+            
+            
+<?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>
+            
+
+
+
+
+<?php /*
+
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
@@ -143,3 +341,4 @@ AppAsset::register($this);
 </html>
 <?php $this->endPage() ?>
 */
+    ?>

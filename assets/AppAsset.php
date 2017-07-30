@@ -18,13 +18,25 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'front/css/bootstrap.css',
+        'front/css/flexslider.css',
+        'front/css/form.css',
+        'front/css/jquery-ui.css',
+        'front/css/memenu.css',
+        'front/css/style.css',
+        
     ];
     public $js = [
-        'js/script.js',
+        'front/js/jquery.flexisel.js',
+        'front/js/jquery.flexslider.js',
+        'front/js/jquery.min.js',
+        'front/js/jquery-ui.min.js',
+        'front/js/memenu.js',
+        'front/js/simpleCart.min.js',
+        'front/js/script.js',
     ];
+    
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
     ];
 }
