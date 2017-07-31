@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Product;
+use app\models\ImageUpload;
 
 class SiteController extends Controller
 {
@@ -61,7 +63,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $newProducts = Product::getNewProducts();
+        $recomendProducts = Product::getRecomendProducts();
+        $imgPath = ImageUpload::getFolderProduct();
+        
+        return $this->render('index', [
+            'newProducts' => $newProducts,
+            'recomendProducts' => $recomendProducts,
+            'imgPath' => $imgPath,
+        ]);
     }
 
     /**

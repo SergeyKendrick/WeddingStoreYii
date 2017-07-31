@@ -31,7 +31,7 @@ AppAsset::register($this);
 				<ul>
 					<li><a href="#">Помощь</a></li>|
 					<li><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>|
-					<li><a href="login.html">Ослеживание заказа</a></li>
+					<li><a href="login.html">Отслеживание заказа</a></li>
 				</ul>
 			</div>
 			<div class="top_left">
@@ -48,15 +48,16 @@ AppAsset::register($this);
 	 <div class="header-bottom">
 		 <div class="container">			
             <div class="logo">
-                <a href="index.html"><h1>Wedding Store</h1></a>
+                <a href="/"><h1>Wedding Store</h1></a>
             </div>
             <div class="top-nav">
                 <ul class="memenu skyblue">
-                    <li class="active"><a href="index.html">Главная</a></li>
-                    <li class="grid"><a href="#">Свадьба</a>
+                    <li class="active"><a href="<?=Url::toRoute(['site/index'])?>">Главная</a></li>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/wedding'])?>">Свадьба</a>
                         <div class="mepanel">
                             <div class="row">
                                 <div class="col1 me-one">
+                                    <h4>Одежда</h4>
                                     <ul>
                                         <li><a href="product.html">Новые платья</a></li>
                                         <li><a href="product.html">Мужская одежда</a></li>
@@ -65,25 +66,14 @@ AppAsset::register($this);
                                         <li><a href="product.html">Детская одежда</a></li>
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="grid"><a href="#">Украшения</a>
-                        <div class="mepanel">
-                            <div class="row">
                                 <div class="col1 me-one">
+                                    <h4>Украшения</h4>
                                     <ul>
                                         <li><a href="product.html">Мужские украшения</a></li>
                                         <li><a href="product.html">Женские украшения</a></li>
                                         <li><a href="product.html">Украшения для детей</a></li>
                                     </ul>	
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="grid"><a href="typo.html">Бренды</a>
-                        <div class="mepanel">
-                            <div class="row">
                                 <div class="col1 me-one">
                                     <h4>Популярные бренды</h4>
                                     <ul>
@@ -100,6 +90,80 @@ AppAsset::register($this);
                                 </div>
                             </div>
                         </div>
+                    </li>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/bride-style'])?>">Украшения</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <h4>Одежда</h4>
+                                    <ul>
+                                        <li><a href="product.html">Новые платья</a></li>
+                                        <li><a href="product.html">Мужская одежда</a></li>
+                                        <li><a href="product.html">Женская одежда</a></li>
+                                        <li><a href="product.html">Аксуссуары</a></li>
+                                        <li><a href="product.html">Детская одежда</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col1 me-one">
+                                    <h4>Украшения</h4>
+                                    <ul>
+                                        <li><a href="product.html">Мужские украшения</a></li>
+                                        <li><a href="product.html">Женские украшения</a></li>
+                                        <li><a href="product.html">Украшения для детей</a></li>
+                                    </ul>	
+                                </div>
+                                <div class="col1 me-one">
+                                    <h4>Популярные бренды</h4>
+                                    <ul>
+                                        <li><a href="product.html">Levis</a></li>
+                                        <li><a href="product.html">Persol</a></li>
+                                        <li><a href="product.html">Nike</a></li>
+                                        <li><a href="product.html">Edwin</a></li>
+                                        <li><a href="product.html">New Balance</a></li>
+                                        <li><a href="product.html">Jack & Jones</a></li>
+                                        <li><a href="product.html">Paul Smith</a></li>
+                                        <li><a href="product.html">Ray-Ban</a></li>
+                                        <li><a href="product.html">Wood Wood</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                    </li>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/brend'])?>">Бренды</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <h4>Одежда</h4>
+                                    <ul>
+                                        <li><a href="product.html">Новые платья</a></li>
+                                        <li><a href="product.html">Мужская одежда</a></li>
+                                        <li><a href="product.html">Женская одежда</a></li>
+                                        <li><a href="product.html">Аксуссуары</a></li>
+                                        <li><a href="product.html">Детская одежда</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col1 me-one">
+                                    <h4>Украшения</h4>
+                                    <ul>
+                                        <li><a href="product.html">Мужские украшения</a></li>
+                                        <li><a href="product.html">Женские украшения</a></li>
+                                        <li><a href="product.html">Украшения для детей</a></li>
+                                    </ul>	
+                                </div>
+                                <div class="col1 me-one">
+                                    <h4>Популярные бренды</h4>
+                                    <ul>
+                                        <li><a href="product.html">Levis</a></li>
+                                        <li><a href="product.html">Persol</a></li>
+                                        <li><a href="product.html">Nike</a></li>
+                                        <li><a href="product.html">Edwin</a></li>
+                                        <li><a href="product.html">New Balance</a></li>
+                                        <li><a href="product.html">Jack & Jones</a></li>
+                                        <li><a href="product.html">Paul Smith</a></li>
+                                        <li><a href="product.html">Ray-Ban</a></li>
+                                        <li><a href="product.html">Wood Wood</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
                     </li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>
 </ul>
@@ -120,9 +184,7 @@ AppAsset::register($this);
             <div class="clearfix"> </div>
 	  </div>
 </div>
-<div class="container">
     <?=$content; ?>
-</div>
 <div class="shoping">
 	 <div class="container">
 		 <div class="shpng-grids">
@@ -136,7 +198,7 @@ AppAsset::register($this);
 			 </div>
 			 <div class="col-md-4 shpng-grid">
 				 <h3>Скидки</h3>
-				 <p>В магазине дейстуют постоянные скидки</p>
+				 <p>В магазине действуют постоянные скидки</p>
 			 </div>
 			 <div class="clearfix"></div>
 		 </div>
@@ -151,7 +213,7 @@ AppAsset::register($this);
 				 <ul>
 					 <li><a href="#">Кто мы</a></li>
 					 <li><a href="contact.html">Обратная связь</a></li>
-					 <li><a href="#">Наши сайте</a></li>
+					 <li><a href="#">Наши сайты</a></li>
 					 <li><a href="#">Новости</a></li>
 					 <li><a href="#">Команда</a></li>
 					 <li><a href="#">Вакансии</a></li>					 

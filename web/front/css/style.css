@@ -408,7 +408,7 @@ span.disc{
 .nbs-flexisel-item > a img {	
 	cursor:auto;
 	position: relative;
-	  width: 90%;
+	  width: auto;
   margin: 0 5%;
 }
 .nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
@@ -488,7 +488,7 @@ li.nbs-flexisel-item a:hover{
 	text-align:center;
 }
 .shpng-grid h3{
-	font-size:2em;
+	font-size:1.5em;
 	text-transform:uppercase;
 	font-family: 'JosefinSans-Bold';
 	color:#333;
@@ -499,7 +499,7 @@ li.nbs-flexisel-item a:hover{
 }
 .shpng-grid p{
 	  color:rgba(189, 0, 0, 0.8);
-  font-size: 1.6em;
+  font-size: 1.1em;
 	text-transform:uppercase;
 	font-family: 'JosefinSans-Light';
 	padding-top:5px;
@@ -508,7 +508,7 @@ li.nbs-flexisel-item a:hover{
 	text-align:center;
 }
 .feature-grid img{
-	width:100%;
+	width:auto;
 	padding:0em 2em 1em 2em;
 }
 .feature-grid{

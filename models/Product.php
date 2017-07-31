@@ -30,6 +30,11 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    public $photo_preview;
+    
+    public $pricedown;
+    
     public static function tableName()
     {
         return 'product';
@@ -133,6 +138,38 @@ class Product extends \yii\db\ActiveRecord
             $this->link('category', $category);
             return true;
         }
+    }
+    
+    public static function getRecomendProducts() {
+        $products = Product::find()->asArray()->limit(8)->all();
+        
+        foreach($products as &$product) {
+            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
+            if($product['discount']) {
+                $product['pricedown'] = $product['price'] - ($product['price'] * ($product['discount'] / 100));
+            }
+        }
+        
+        return $products;
+    }
+    
+    public static function getNewProducts() {
+        $products = Product::find()->asArray()->orderBy('date desc')->limit(10)->all();
+        
+        foreach($products as &$product) {
+            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
+            if($product['discount']) {
+                $product['pricedown'] = $product['price'] - ($product['price'] * ($product['discount'] / 100));
+            }
+            
+        }
+        
+        return $products;
+    }
+    
+    public static function getPreviewPhoto($id) {
+        $photo = ProductPhoto::getPreviewPhotoName($id);
+        return ImageUpload::getFolderProductForView().$photo['filename'];
     }
     
     

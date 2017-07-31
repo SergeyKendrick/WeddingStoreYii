@@ -30,7 +30,7 @@ class ImageUpload extends Model {
 
             $file->saveAs($this->getFolderProduct().$filename);
 
-            return $filename;
+            return $filename; 
     }
     
     public static function getFolderProduct() {

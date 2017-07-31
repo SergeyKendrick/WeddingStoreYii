@@ -116,4 +116,8 @@ class ProductPhoto extends \yii\db\ActiveRecord
         return $photo->delete();
         
     }
+    
+    public static function getPreviewPhotoName($product_id) {
+        return ProductPhoto::find()->select('filename')->where(['product_id' => $product_id])->asArray()->one();
+    }
 }
