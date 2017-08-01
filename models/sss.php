@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property string $title
- * @property integer $global_category_id
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -27,7 +26,6 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['global_category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -39,18 +37,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'global_category_id' => 'Global Category ID',
+            'title' => 'Наименование',
         ];
-    }
-    
-    public function saveCategory($category) {
-        $this->title = $category['Category']['title'];
-        $this->global_category_id = $category['globalCategory'];
-        return $this->save();
-    }
-    
-    public function getGlobalCategory() {
-        return $this->hasOne(GlobalCategory::className(), ['id' => 'global_category_id']);
     }
 }

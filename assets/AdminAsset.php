@@ -7,7 +7,7 @@
 
 namespace app\assets;
 
-use yii\web\AssetBundle;
+use yii\web\AssetBundle; 
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>

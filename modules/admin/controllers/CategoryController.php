@@ -5,9 +5,12 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
+use app\models\GlobalCategory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -37,10 +40,12 @@ class CategoryController extends Controller
     {
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $globalCategories = GlobalCategory::getCategories();
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'globalCategories' => $globalCategories,
         ]);
     }
 
@@ -64,9 +69,32 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
+        
+        $globalCategories = ArrayHelper::map(GlobalCategory::find()->all(), 'id', 'title');
+        
+        $no_global = 1;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $category = Yii::$app->request->post();
+            $model->saveCategory($category);
+            
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'globalCategories' => $globalCategories,
+                'no_global' => $no_global,
+                
+            ]);
+        }
+    }
+    
+    public function actionGlobalCreate()
+    {
+        $model = new GlobalCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,

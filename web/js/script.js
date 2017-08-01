@@ -8,3 +8,13 @@ $('div.imgProductBox img').bind('click', function() {
 $('div.popup-box').on('click', function() {
    $(this).hide(); 
 });
+
+$('ul.nav li:first-child').on('click', function() {
+    $('p.category').show();
+    $('p.global-category').hide();
+});
+
+$('ul.nav li:nth-child(2)').on('click', function() {
+    $('p.category').hide();
+    $('p.global-category').show();
+});

@@ -13,7 +13,11 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
+    <?php if($no_global): ?>
+    <p><b>Глобальная категория</b></p>
+    <?=Html::dropDownList('globalCategory', $globalCategories[0] , $globalCategories, ['class' => 'form-control']); ?>
+    <?php endif; ?>
+    <br />
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

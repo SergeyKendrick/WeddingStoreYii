@@ -41,7 +41,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
+        $query = Category::find()->joinWith('globalCategory');
 
         // add conditions that should always apply here
 
