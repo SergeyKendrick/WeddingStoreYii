@@ -69,4 +69,13 @@ class Category extends \yii\db\ActiveRecord
         return true;
         
     }
+    
+    public function getCategoriesForMenu($title) {
+        $global = new GlobalCategory;
+        $globalTitle = $global->find()->where(['title' => $title])->one();
+        $categories = $this->find()->asArray()->where(['global_category_id' => $globalTitle->id])->all();
+        
+        return $categories;
+        
+    }
 }

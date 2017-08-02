@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Product;
 use app\models\ImageUpload;
+use app\models\Category;
 
 class SiteController extends Controller
 {

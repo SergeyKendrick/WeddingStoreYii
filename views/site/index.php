@@ -98,7 +98,7 @@ $this->title = 'Wedding store';
              <?php endif; ?>     
              <?php $i++; ?>       
 				 <div class="col-md-3 feature-grid">
-					 <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product->id]) ?>">
+					 <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product['id']]) ?>">
 					     <img height="230" src="<?=$product['photo_preview'];?>" alt=""/>	
                          <div class="arrival-info">
                              <h4><?=$product['title']?></h4>
@@ -128,7 +128,7 @@ $this->title = 'Wedding store';
 			 <ul id="flexiselDemo1">
 			     <?php foreach($newProducts as $product): ?>
 				 <li>
-					 <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product->id]) ?>">
+					 <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product['id']]) ?>">
 					     <img height="230" src="<?=$product['photo_preview'];?>" alt=""/>	
                          <div class="arrival-info">
                              <h4><?=$product['title']?></h4>

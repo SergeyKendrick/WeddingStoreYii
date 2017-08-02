@@ -172,5 +172,10 @@ class Product extends \yii\db\ActiveRecord
         return ImageUpload::getFolderProductForView().$photo['filename'];
     }
     
+    public static function getBrends() {
+        return Product::find()->select('DISTINCT `brand`')->asArray()->all();
+        
+    }
+    
     
 }

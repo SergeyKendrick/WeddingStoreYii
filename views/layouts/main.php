@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use app\components\Dropmenu;
 
 AppAsset::register($this);
 ?>
@@ -54,121 +55,14 @@ AppAsset::register($this);
                 <ul class="memenu skyblue">
                     <li class="active"><a href="<?=Url::toRoute(['site/index'])?>">Главная</a></li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/wedding'])?>">Свадьба</a>
-                        <div class="mepanel">
-                            <div class="row">
-                                <div class="col1 me-one">
-                                    <h4>Одежда</h4>
-                                    <ul>
-                                        <li><a href="product.html">Новые платья</a></li>
-                                        <li><a href="product.html">Мужская одежда</a></li>
-                                        <li><a href="product.html">Женская одежда</a></li>
-                                        <li><a href="product.html">Аксуссуары</a></li>
-                                        <li><a href="product.html">Детская одежда</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Украшения</h4>
-                                    <ul>
-                                        <li><a href="product.html">Мужские украшения</a></li>
-                                        <li><a href="product.html">Женские украшения</a></li>
-                                        <li><a href="product.html">Украшения для детей</a></li>
-                                    </ul>	
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Популярные бренды</h4>
-                                    <ul>
-                                        <li><a href="product.html">Levis</a></li>
-                                        <li><a href="product.html">Persol</a></li>
-                                        <li><a href="product.html">Nike</a></li>
-                                        <li><a href="product.html">Edwin</a></li>
-                                        <li><a href="product.html">New Balance</a></li>
-                                        <li><a href="product.html">Jack & Jones</a></li>
-                                        <li><a href="product.html">Paul Smith</a></li>
-                                        <li><a href="product.html">Ray-Ban</a></li>
-                                        <li><a href="product.html">Wood Wood</a></li>
-                                    </ul>	
-                                </div>
-                            </div>
-                        </div>
+                        <?=Dropmenu::Widget();?>
                     </li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/bride-style'])?>">Украшения</a>
-                        <div class="mepanel">
-                            <div class="row">
-                                <div class="col1 me-one">
-                                    <h4>Одежда</h4>
-                                    <ul>
-                                        <li><a href="product.html">Новые платья</a></li>
-                                        <li><a href="product.html">Мужская одежда</a></li>
-                                        <li><a href="product.html">Женская одежда</a></li>
-                                        <li><a href="product.html">Аксуссуары</a></li>
-                                        <li><a href="product.html">Детская одежда</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Украшения</h4>
-                                    <ul>
-                                        <li><a href="product.html">Мужские украшения</a></li>
-                                        <li><a href="product.html">Женские украшения</a></li>
-                                        <li><a href="product.html">Украшения для детей</a></li>
-                                    </ul>	
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Популярные бренды</h4>
-                                    <ul>
-                                        <li><a href="product.html">Levis</a></li>
-                                        <li><a href="product.html">Persol</a></li>
-                                        <li><a href="product.html">Nike</a></li>
-                                        <li><a href="product.html">Edwin</a></li>
-                                        <li><a href="product.html">New Balance</a></li>
-                                        <li><a href="product.html">Jack & Jones</a></li>
-                                        <li><a href="product.html">Paul Smith</a></li>
-                                        <li><a href="product.html">Ray-Ban</a></li>
-                                        <li><a href="product.html">Wood Wood</a></li>
-                                    </ul>	
-                                </div>
-                            </div>
+                        <?=Dropmenu::Widget();?>
                     </li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/brend'])?>">Бренды</a>
-                        <div class="mepanel">
-                            <div class="row">
-                                <div class="col1 me-one">
-                                    <h4>Одежда</h4>
-                                    <ul>
-                                        <li><a href="product.html">Новые платья</a></li>
-                                        <li><a href="product.html">Мужская одежда</a></li>
-                                        <li><a href="product.html">Женская одежда</a></li>
-                                        <li><a href="product.html">Аксуссуары</a></li>
-                                        <li><a href="product.html">Детская одежда</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Украшения</h4>
-                                    <ul>
-                                        <li><a href="product.html">Мужские украшения</a></li>
-                                        <li><a href="product.html">Женские украшения</a></li>
-                                        <li><a href="product.html">Украшения для детей</a></li>
-                                    </ul>	
-                                </div>
-                                <div class="col1 me-one">
-                                    <h4>Популярные бренды</h4>
-                                    <ul>
-                                        <li><a href="product.html">Levis</a></li>
-                                        <li><a href="product.html">Persol</a></li>
-                                        <li><a href="product.html">Nike</a></li>
-                                        <li><a href="product.html">Edwin</a></li>
-                                        <li><a href="product.html">New Balance</a></li>
-                                        <li><a href="product.html">Jack & Jones</a></li>
-                                        <li><a href="product.html">Paul Smith</a></li>
-                                        <li><a href="product.html">Ray-Ban</a></li>
-                                        <li><a href="product.html">Wood Wood</a></li>
-                                    </ul>	
-                                </div>
-                            </div>
+                        <?=Dropmenu::Widget();?>
                     </li>
-                    <li class="grid"><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>
-</ul>
-                <div class="clearfix"> </div>
-            </div>
             <div class="cart box_1">
                 <a href="checkout.html">
                     <h3> <div class="total">
