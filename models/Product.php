@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+
 use Yii;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "product".
@@ -177,13 +179,13 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
-    public function getProducts($id) {
+    public function getProducts($id, $section) {
         
         $category_obj = new Category;
         
         if(!$id) {
             $connection = \Yii::$app->db;
-            $categories = $category_obj->getCategoriesForMenu('Одежда');
+            $categories = $category_obj->getCategoriesForMenu($section);
 
             $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
 
@@ -195,11 +197,34 @@ class Product extends \yii\db\ActiveRecord
                     $query = $query . " OR category_id = " . $category['id'];
                 }
             }
+            
+            // get the total number of articles (but do not fetch the article data yet)
+            $count = "SELECT count(*) ". substr($query, stripos($query, "FROM"));
+            
+            $count = $connection->createCommand($count);
+            $count = $count->queryOne();
+            $count = $count['count(*)'];
+
+            // create a pagination object with the total count
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+            
+            $query = $query." LIMIT ". $pagination->limit. " OFFSET ".$pagination->offset; 
 
             $products = $connection->createCommand($query);
             $products = $products->queryAll();
+            
+            
         } else {
-            $products = Product::find()->asArray()->where(['category_id' => $id])->all();
+            // build a DB query to get all articles with status = 1
+            $query = Product::find();
+            // get the total number of articles (but do not fetch the article data yet)
+            $count = $query->count();
+            // create a pagination object with the total count
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+            $products = Product::find()->asArray()->where(['category_id' => $id])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
         }
         
         foreach($products as &$product) {
@@ -209,11 +234,53 @@ class Product extends \yii\db\ActiveRecord
             }
         }
         
-        return $products;
+        $data['products'] = $products;
+        $data['pagination'] = $pagination;
         
+        return $data;
         
     }
     
+    public function getProductsBrend($title) {
+        if($title) {
+            // build a DB query to get all articles with status = 1
+            $query = Product::find()->where(['brand' => $title]);
+            // get the total number of articles (but do not fetch the article data yet)
+            $count = $query->count();
+            // create a pagination object with the total count
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+            // limit the query using the pagination and retrieve the articles
+            $products = $query->asArray()->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->where(['brand' => $title])
+                ->all();
+            
+        } else {
+            // build a DB query to get all articles with status = 1
+            $query = Product::find();
+            // get the total number of articles (but do not fetch the article data yet)
+            $count = $query->count();
+            // create a pagination object with the total count
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+            // limit the query using the pagination and retrieve the articles
+            $products = $query->asArray()->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+        }
+        
+        foreach($products as &$product) {
+            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
+            if($product['discount']) {
+                $product['price'] = $product['price'] - $product['price'] / 100 * $product['discount'];
+            }
+        }
+        
+        $data['products'] = $products;
+        $data['pagination'] = $pagination;
+        
+        return $data;
+        
+    }
     
 }
 

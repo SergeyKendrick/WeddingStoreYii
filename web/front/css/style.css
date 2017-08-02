@@ -343,6 +343,7 @@ figure.effect-bubba:hover p {
 .bride-grids img{
 	width:100%;
 }
+
 /*--arrivals--*/
 .arrivals{
 	padding:4em 0;
@@ -709,7 +710,7 @@ ul.tabs-menu li.active a{
 .product-grid {
 	width: 30%;
 	margin: 0 3% 4% 0;
-	float: left;	
+    display: inline-block;
 	position: relative;
 	transition: 0.5s all;
 	-webkit-transition: 0.5s all;

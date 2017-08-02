@@ -2,6 +2,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 ?>
 
@@ -40,7 +41,11 @@ use yii\helpers\Url;
                     </div>
                 </div>	
                 <?php endforeach; ?>
+            <?php
+                echo "<div style='text-align: center'> ".LinkPager::widget(['pagination' => $pagination,])."</div> ";
+            ?>
 			</div>
+
 			<div class="rsidebar span_1_of_left">
 				 <section  class="sky-form">
 					 <div class="product_right">

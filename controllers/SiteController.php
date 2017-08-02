@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\Product;
 use app\models\ImageUpload;
 use app\models\Category;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -79,10 +80,34 @@ class SiteController extends Controller
         
         $product_obj = new Product;
         
-        $products = $product_obj->getProducts($id);
+        $data = $product_obj->getProducts($id, 'Одежда');
         
         return $this->render('catalog', [
-            'products' => $products,
+            'products' => $data['products'],
+            'pagination' => $data['pagination'],
+        ]);
+    }
+    
+    public function actionBrideStyle($id = NULL) {
+        $product_obj = new Product;
+        
+        $data = $product_obj->getProducts($id, 'Украшения');
+        
+        return $this->render('catalog', [
+            'products' => $data['products'],
+            'pagination' => $data['pagination'],
+        ]);
+    }
+    
+    public function actionBrend($title = NULL) {
+        
+        $product_obj = new Product;
+        
+        $data = $product_obj->getProductsBrend($title);
+
+        return $this->render('catalog', [
+            'products' => $data['products'],
+            'pagination' => $data['pagination'],
         ]);
     }
 

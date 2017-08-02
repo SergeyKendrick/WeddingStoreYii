@@ -64,7 +64,7 @@ class Dropmenu extends Widget {
                         <ul>";
         foreach($brends as $brend) {
             
-            $result = $result . '<li>' . Html::a($brend['brand'], ['site/brands', 'title' => $brend['brand']]) . '</li>';
+            $result = $result . '<li>' . Html::a($brend['brand'], ['site/brend', 'title' => $brend['brand']]) . '</li>';
         }
         
         $result = $result . '</ul>' . '</div>';
