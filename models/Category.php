@@ -53,4 +53,20 @@ class Category extends \yii\db\ActiveRecord
     public function getGlobalCategory() {
         return $this->hasOne(GlobalCategory::className(), ['id' => 'global_category_id']);
     }
+    
+    public function deleteGlobal($id) {
+        $global = new GlobalCategory;
+        
+        $current_category = $this->find()->asArray()->select('global_category_id')->where(['global_category_id' => $id])->all();
+        
+        foreach ($current_category as $category) {
+            $this->global_category_id = NULL;
+            $this->save(); 
+        } 
+        
+        $global::findOne($id)->delete();
+        
+        return true;
+        
+    }
 }

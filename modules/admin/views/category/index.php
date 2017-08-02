@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\Tabs;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CategorySearch */
@@ -53,12 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
         $i = 0;
         foreach($globalCategories as $category) {
             $i++;
+            $href = Url::toRoute(['delete-global-category', 'id' => $category['id']]);
             $tab2 = $tab2.
                 "<tr>
                     <td>$i</td>
                     <td>".$category['title']."</td>
                     <td>
-                        <a href='' title='Удалить' aria-label='Удалить' data-pjax='0' data-confirm='Вы уверены, что хотите удалить это?' data-method='post'><span class='glyphicon glyphicon-trash'></span></a>
+                        <a href=".$href." title='Удалить' aria-label='Удалить' data-pjax='0' data-confirm='Вы уверены, что хотите удалить это?' data-method='post'><span class='glyphicon glyphicon-trash'></span></a>
                     </td>
                  </tr>";
             

@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'globalCategories' => $globalCategories,
+        'no_global' => $no_global,
     ]) ?>
 
 </div>

@@ -111,12 +111,19 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $no_global = 1;
+        
+        $globalCategories = ArrayHelper::map(GlobalCategory::find()->all(), 'id', 'title');
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $category = Yii::$app->request->post();
+            $model->saveCategory($category);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'globalCategories' => $globalCategories,
+                'no_global' => $no_global,
             ]);
         }
     }
@@ -131,6 +138,13 @@ class CategoryController extends Controller
     {
         $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
+    }
+    
+    public function actionDeleteGlobalCategory($id) {
+        $category = new category;
+        $category->deleteGlobal($id);
+        
         return $this->redirect(['index']);
     }
 
