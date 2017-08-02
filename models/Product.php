@@ -177,5 +177,38 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
+    public function getProducts() {
+        $connection = \Yii::$app->db;
+        
+        $category_obj = new Category;
+        $categories = $category_obj->getCategoriesForMenu('Одежда');
+        
+        $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
+        
+        foreach($categories as $category) {
+            if(!$i) {
+                $query = $query . "WHERE category_id = " . $category['id'];
+                $i = 1;
+            } else {
+                $query = $query . " OR category_id = " . $category['id'];
+            }
+        }
+        
+        $products = $connection->createCommand($query);
+        $products = $products->queryAll();
+        
+        foreach($products as &$product) {
+            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
+            if($product['discount']) {
+                $product['price'] = $product['price'] - $product['price'] / 100 * $product['discount'];
+            }
+        }
+        
+        return $products;
+        
+        
+    }
+    
     
 }
+

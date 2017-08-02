@@ -74,6 +74,17 @@ class SiteController extends Controller
             'imgPath' => $imgPath,
         ]);
     }
+    
+    public function actionWedding() {
+        
+        $product_obj = new Product;
+        
+        $products = $product_obj->getProducts();
+        
+        return $this->render('catalog', [
+            'products' => $products,
+        ]);
+    }
 
     /**
      * Login action.

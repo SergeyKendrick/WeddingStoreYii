@@ -63,6 +63,7 @@ AppAsset::register($this);
                     <li class="grid"><a href="<?=Url::toRoute(['site/brend'])?>">Бренды</a>
                         <?=Dropmenu::Widget();?>
                     </li>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>
             <div class="cart box_1">
                 <a href="checkout.html">
                     <h3> <div class="total">
