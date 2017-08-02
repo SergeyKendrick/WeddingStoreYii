@@ -177,25 +177,30 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
-    public function getProducts() {
-        $connection = \Yii::$app->db;
+    public function getProducts($id) {
         
         $category_obj = new Category;
-        $categories = $category_obj->getCategoriesForMenu('Одежда');
         
-        $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
-        
-        foreach($categories as $category) {
-            if(!$i) {
-                $query = $query . "WHERE category_id = " . $category['id'];
-                $i = 1;
-            } else {
-                $query = $query . " OR category_id = " . $category['id'];
+        if(!$id) {
+            $connection = \Yii::$app->db;
+            $categories = $category_obj->getCategoriesForMenu('Одежда');
+
+            $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
+
+            foreach($categories as $category) {
+                if(!$i) {
+                    $query = $query . "WHERE category_id = " . $category['id'];
+                    $i = 1;
+                } else {
+                    $query = $query . " OR category_id = " . $category['id'];
+                }
             }
+
+            $products = $connection->createCommand($query);
+            $products = $products->queryAll();
+        } else {
+            $products = Product::find()->asArray()->where(['category_id' => $id])->all();
         }
-        
-        $products = $connection->createCommand($query);
-        $products = $products->queryAll();
         
         foreach($products as &$product) {
             $product['photo_preview'] = Product::getPreviewPhoto($product['id']);

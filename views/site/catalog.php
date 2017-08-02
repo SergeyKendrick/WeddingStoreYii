@@ -14,6 +14,7 @@ use yii\helpers\Url;
 		 </ol>
 			<h2>Наши товары</h2>			
 		 <div class="col-md-9 product-model-sec">
+                <?php if(!$products) echo "<h3>В данном разделе товаров нет</h3>"; ?>
                 <?php foreach($products as $product): ?>
 				    <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product['id']]) ?>">
                         <div class="product-grid love-grid">

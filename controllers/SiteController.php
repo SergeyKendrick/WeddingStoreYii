@@ -75,11 +75,11 @@ class SiteController extends Controller
         ]);
     }
     
-    public function actionWedding() {
+    public function actionWedding($id = NULL) {
         
         $product_obj = new Product;
         
-        $products = $product_obj->getProducts();
+        $products = $product_obj->getProducts($id);
         
         return $this->render('catalog', [
             'products' => $products,
