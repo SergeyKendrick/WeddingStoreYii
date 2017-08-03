@@ -38,7 +38,7 @@ AppAsset::register($this);
 			<div class="top_left">
 				<ul>
 					<li class="top_link">Email:<a href="mailto:info@example.com">admin@weddingstore.com</a></li>|
-					<li class="top_link"><a href="login.html">Мой аккаунт</a></li>					
+					<li class="top_link"><a href="<?=Url::toRoute(['site/login'])?>">Мой аккаунт</a></li>					
 				</ul>
 			</div>
 				<div class="clearfix"> </div>

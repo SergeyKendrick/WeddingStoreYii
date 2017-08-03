@@ -98,13 +98,19 @@ class SiteController extends Controller
     public function actionBrend($title = NULL) {
         
         $product_obj = new Product;
-        
         $data = $product_obj->getProductsBrend($title);
+        
+        $category_obj = new Category;
+        $categoriesForSidebar = $category_obj->getAllCategories();
+        $brends = Product::getBrends();
+        $types = Product::getTypesForSidebar();
 
         return $this->render('catalog', [
             'products' => $data['products'],
             'pagination' => $data['pagination'],
             'categoriesForSidebar' => $categoriesForSidebar,
+            'brends' => $brends,
+            'types' => $types,
         ]);
     }
     
@@ -115,6 +121,8 @@ class SiteController extends Controller
         
         $category_obj = new Category;
         $categoriesForSidebar = $category_obj->getAllCategories();
+        $brends = Product::getBrends();
+        $types = Product::getTypesForSidebar();
         
         $relatedProducts = Product::getRecomendProducts();
         
@@ -122,6 +130,8 @@ class SiteController extends Controller
             'product' => $product,
             'relatedProducts' => $relatedProducts,
             'categoriesForSidebar' => $categoriesForSidebar,
+            'brends' => $brends,
+            'types' => $types,
         ]);
     }
 
