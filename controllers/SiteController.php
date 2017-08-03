@@ -83,6 +83,7 @@ class SiteController extends Controller
         $category_obj = new Category;
         $categoriesForSidebar = $category_obj->getAllCategories();
         $brends = Product::getBrends();
+        $types = Product::getTypesForSidebar();
     
         
         return $this->render('catalog', [
@@ -90,6 +91,7 @@ class SiteController extends Controller
             'pagination' => $data['pagination'],
             'categoriesForSidebar' => $categoriesForSidebar,
             'brends' => $brends,
+            'types' => $types,
         ]);
     }
     

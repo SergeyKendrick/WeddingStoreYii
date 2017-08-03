@@ -58,25 +58,24 @@ use yii\helpers\Url;
          <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
          <!---->
          <section  class="sky-form">
-            <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Type</h4>
+            <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Тип</h4>
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
-                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>1 Gram Gold (30)</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Gold Plated   (30)</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Platinum      (30)</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Silver        (30)</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jewellery Sets  (30)</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Stone Items   (30)</label>
+                        <?php foreach($types as $type): ?>
+                            <?php if($type['type']): ?>
+                                <label class="checkbox"><input type="checkbox" name="<?=$type['type']?>"><i></i><?=$type['type']?> (<?=$type['count']?>)</label>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
        </section>
             <section  class="sky-form">
-            <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Brand</h4>
+            <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Бренд</h4>
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
                         <?php foreach($brends as $brend): ?>
                             <?php if($brend['brand']): ?>
-                            <label class="checkbox"><input type="checkbox" name="<?=$brend['brand']?>" checked=""><i></i><?=$brend['brand']?></label>
+                            <label class="checkbox"><input type="checkbox" name="<?=$brend['brand']?>"><i></i><?=$brend['brand']?></label>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>

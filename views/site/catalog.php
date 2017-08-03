@@ -50,6 +50,7 @@ use yii\widgets\LinkPager;
 			<?=$this->render('/partials/rsidebar.php', [
                 'categoriesForSidebar' => $categoriesForSidebar,
                 'brends' => $brends,
+                'types' => $types,
             ]); ?>		 
         </div>
     </div>
