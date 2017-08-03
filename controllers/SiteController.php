@@ -110,6 +110,11 @@ class SiteController extends Controller
             'pagination' => $data['pagination'],
         ]);
     }
+    
+    public function actionProductDetail() {
+        
+        return $this->render('productDetail');
+    }
 
     /**
      * Login action.

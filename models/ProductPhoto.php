@@ -101,7 +101,7 @@ class ProductPhoto extends \yii\db\ActiveRecord
         
         $this->deleteAllImageFromTable($product_id);
         
-        return true;
+        return true; 
     }
     
     public function deleteImageFromFolder($currentImage) {
