@@ -56,28 +56,12 @@ use yii\helpers\Url;
        <!---->
          <script type="text/javascript" src="js/jquery-ui.min.js"></script>
          <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-        <script type='text/javascript'>//<![CDATA[ 
-        $(window).load(function(){
-         $( "#slider-range" ).slider({
-                    range: true,
-                    min: 0,
-                    max: 400000,
-                    values: [ 8500, 350000 ],
-                    slide: function( event, ui ) {  $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-                    }
-         });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-
-        });//]]> 
-        </script>
          <!---->
          <section  class="sky-form">
             <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Type</h4>
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
                         <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>1 Gram Gold (30)</label>
-                    </div>
-                    <div class="col col-4">
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Gold Plated   (30)</label>
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Platinum      (30)</label>
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Silver        (30)</label>
@@ -90,13 +74,11 @@ use yii\helpers\Url;
             <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Brand</h4>
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
-                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Akasana Collectio</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Colori</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Crafts Hub</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jisha</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Karatcart</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>Titan</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Amuktaa</label>
+                        <?php foreach($brends as $brend): ?>
+                            <?php if($brend['brand']): ?>
+                            <label class="checkbox"><input type="checkbox" name="<?=$brend['brand']?>" checked=""><i></i><?=$brend['brand']?></label>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
        </section>			

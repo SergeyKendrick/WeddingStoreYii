@@ -241,7 +241,7 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
-    public function getProductsBrend($title) {
+    public function getProductsBrend($title = NULL) {
         if($title) {
             // build a DB query to get all articles with status = 1
             $query = Product::find()->where(['brand' => $title]);
