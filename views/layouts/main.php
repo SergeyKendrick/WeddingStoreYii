@@ -54,10 +54,10 @@ AppAsset::register($this);
             <div class="top-nav">
                 <ul class="memenu skyblue">
                     <li class="active"><a href="<?=Url::toRoute(['site/index'])?>">Главная</a></li>
-                    <li class="grid"><a href="<?=Url::toRoute(['site/wedding'])?>">Свадьба</a>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/catalog', 'title' => 'Одежда'])?>">Свадьба</a>
                         <?=Dropmenu::Widget();?>
                     </li>
-                    <li class="grid"><a href="<?=Url::toRoute(['site/bride-style'])?>">Украшения</a>
+                    <li class="grid"><a href="<?=Url::toRoute(['site/catalog', 'title' => 'Украшения'])?>">Украшения</a>
                         <?=Dropmenu::Widget();?>
                     </li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/brend'])?>">Бренды</a>

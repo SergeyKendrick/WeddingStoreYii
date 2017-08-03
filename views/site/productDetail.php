@@ -87,19 +87,7 @@ use yii\helpers\Url;
 					 </div>					 
 				  </div>
 				  <div class="clearfix"></div>
-					<div class="sofaset-info">
-						 <h4>Product Summary: American Diamond Famina Ruby Copper, Brass Jewel Set</h4>
-						 <ul>
-							 <li>Classic and vibrant detailing</li>
-							 <li>Design: Exquisitely crafted necklace set to suit your festive mood</li>
-							 <li>Stones Used: Synthetic stones and beads</li>
-							 <li>Colour: Brown Jute, Sheron Brown</li>
-							 <li>Recommended Wear: Festive</li>
-							 <li>Note: The image has been enlarged for better viewing</li>
-							 <li>Contents: 4 Pc</li>
-							 <li>Delivery Time: 7 to 10 days from the Day of Dispatch</li>							 
-						 </ul>
-				  </div>
+					
 		  <!---->
 		  <div class="product-table">
 				 <h3> <?=$product['title']?>. Параметры</h3>
@@ -214,7 +202,9 @@ use yii\helpers\Url;
 			</div>			
 			<!---->
 		    </div>
-		    <?=$this->render('/partials/rsidebar.php'); ?>
+		    <?=$this->render('/partials/rsidebar.php', [
+                'categoriesForSidebar' => $categoriesForSidebar,
+            ]); ?>
 		     <div class="clearfix"></div>
 	  </div>	 
 </div>

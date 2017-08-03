@@ -76,26 +76,18 @@ class SiteController extends Controller
         ]);
     }
     
-    public function actionWedding($id = NULL) {
-        
+    public function actionCatalog($id = NULL, $title = NULL) {
         $product_obj = new Product;
+        $data = $product_obj->getProducts($id, $title);
         
-        $data = $product_obj->getProducts($id, 'Одежда');
-        
-        return $this->render('catalog', [
-            'products' => $data['products'],
-            'pagination' => $data['pagination'],
-        ]);
-    }
+        $category_obj = new Category;
+        $categoriesForSidebar = $category_obj->getAllCategories();
     
-    public function actionBrideStyle($id = NULL) {
-        $product_obj = new Product;
-        
-        $data = $product_obj->getProducts($id, 'Украшения');
         
         return $this->render('catalog', [
             'products' => $data['products'],
             'pagination' => $data['pagination'],
+            'categoriesForSidebar' => $categoriesForSidebar,
         ]);
     }
     
@@ -108,6 +100,7 @@ class SiteController extends Controller
         return $this->render('catalog', [
             'products' => $data['products'],
             'pagination' => $data['pagination'],
+            'categoriesForSidebar' => $categoriesForSidebar,
         ]);
     }
     
@@ -116,11 +109,15 @@ class SiteController extends Controller
         $product_obj = new Product;
         $product = $product_obj->getProductDetail($id);
         
+        $category_obj = new Category;
+        $categoriesForSidebar = $category_obj->getAllCategories();
+        
         $relatedProducts = Product::getRecomendProducts();
         
         return $this->render('productDetail', [
             'product' => $product,
             'relatedProducts' => $relatedProducts,
+            'categoriesForSidebar' => $categoriesForSidebar,
         ]);
     }
 

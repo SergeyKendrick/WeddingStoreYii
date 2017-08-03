@@ -76,6 +76,16 @@ class Category extends \yii\db\ActiveRecord
         $categories = $this->find()->asArray()->where(['global_category_id' => $globalTitle->id])->all();
         
         return $categories;
+    }
+    
+    public function getAllCategories() {
+        $globalCategories = GlobalCategory::getCategorie();
+        
+        foreach ($globalCategories as &$globalCategory) {
+            $globalCategory['sub_categories'] = Category::find()->asArray()->select('id, title')->where(['global_category_id' => $globalCategory['id']])->all();
+        }
+        
+        return $globalCategories;
         
     }
 }

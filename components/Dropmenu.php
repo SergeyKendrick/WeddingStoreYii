@@ -31,7 +31,7 @@ class Dropmenu extends Widget {
                         <ul>";
         foreach($categoriesCloth as $category) {
             
-            $result = $result . '<li>' . Html::a($category['title'], ['site/wedding', 'id' => $category['id']]) . '</li>';
+            $result = $result . '<li>' . Html::a($category['title'], ['site/catalog', 'id' => $category['id']]) . '</li>';
         }
         
         $result = $result . '</ul>' . '</div>';
@@ -48,7 +48,7 @@ class Dropmenu extends Widget {
                         <ul>";
         foreach($categories as $category) {
             
-            $result = $result . '<li>' . Html::a($category['title'], ['site/bride-style', 'id' => $category['id']]) . '</li>';
+            $result = $result . '<li>' . Html::a($category['title'], ['site/catalog', 'id' => $category['id']]) . '</li>';
         }
         
         $result = $result . '</ul>' . '</div>';

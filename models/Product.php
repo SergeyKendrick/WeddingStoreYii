@@ -179,13 +179,13 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
-    public function getProducts($id, $section) {
+    public function getProducts($id, $title) {
         
         $category_obj = new Category;
         
-        if(!$id) {
+        if($title) {
             $connection = \Yii::$app->db;
-            $categories = $category_obj->getCategoriesForMenu($section);
+            $categories = $category_obj->getCategoriesForMenu($title);
 
             $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
 

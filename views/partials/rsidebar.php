@@ -1,67 +1,28 @@
+<?php 
+
+use yii\helpers\Url;
+
+?>
+
 <div class="rsidebar span_1_of_left">
      <section  class="sky-form">
          <div class="product_right">
              <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Категории</h4>
-             <div class="tab1">
-                 <ul class="place">								
-                     <li class="sort">Fashion</li>
-                     <li class="by"><img src="/front/images/do.png" alt=""></li>
-                        <div class="clearfix"> </div>
-                  </ul>
-                 <div class="single-bottom">						
-                        <a href="#"><p>Gifts</p></a>
-                        <a href="#"><p>Flowers</p></a>
-                        <a href="#"><p>Shoes</p></a>
-                        <a href="#"><p>Suits</p></a>
-                        <a href="#"><p>Dresses</p></a>
-                 </div>
-              </div>						  
-              <div class="tab2">
-                 <ul class="place">								
-                     <li class="sort">Women Ethnic Wear</li>
-                     <li class="by"><img src="/front/images/do.png" alt=""></li>
-                        <div class="clearfix"> </div>
-                  </ul>
-                 <div class="single-bottom">						
-                        <a href="#"><p>Sarees & More</p></a>
-                        <a href="#"><p>Salwar Suits</p></a>									
-                 </div>
-              </div>
-              <div class="tab3">
-                 <ul class="place">								
-                     <li class="sort">Personal Care</li>
-                     <li class="by"><img src="/front/images/do.png" alt=""></li>
-                        <div class="clearfix"> </div>
-                  </ul>
-                 <div class="single-bottom">						
-                        <a href="#"><p>Make Up</p></a>
-                 </div>
-              </div>
-              <div class="tab4">
-                 <ul class="place">								
-                     <li class="sort">Jewellery</li>
-                     <li class="by"><img src="/front/images/do.png" alt=""></li>
-                        <div class="clearfix"> </div>
-                  </ul>
-                 <div class="single-bottom">						
-                        <a href="#"><p>Fashion</p></a>
-                        <a href="#"><p>Precious</p></a>
-                        <a href="#"><p>1 Gram Gold</p></a>
-                 </div>
-              </div>
-              <div class="tab5">
-                 <ul class="place">								
-                     <li class="sort">Specials</li>
-                     <li class="by"><img src="/front/images/do.png" alt=""></li>
-                        <div class="clearfix"> </div>
-                  </ul>
-                 <div class="single-bottom">						
-                        <a href="#"><p>Cakes</p></a>
-                        <a href="#"><p>Party Items</p></a>
-                        <a href="#"><p></p></a>
-                        <a href="#"><p>Relax Chairs</p></a>
-                 </div>
-              </div>
+             <?php foreach($categoriesForSidebar as $globalCategory): ?>
+                 <div class="tab">
+                     <ul class="place">								
+                         <li class="sort"><?=$globalCategory['title']?></li>
+                         <li class="by"><img src="/front/images/do.png" alt=""></li>
+                            <div class="clearfix"> </div>
+                      </ul>
+                     <div class="single-bottom">
+                        <?php foreach($globalCategory['sub_categories'] as $category): ?>						
+                            <a href="<?=Url::toRoute(['site/catalog', 'id' => $category['id']]) ?>"><p><?=$category['title']?></p></a>
+                        <?php endforeach; ?>
+                     </div>
+                  </div>
+              <?php endforeach; ?>						  
+
 
               <!--script-->
             <script>
@@ -130,8 +91,6 @@
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
                         <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Akasana Collectio</label>
-                    </div>
-                    <div class="col col-4">
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Colori</label>
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Crafts Hub</label>
                         <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jisha</label>
