@@ -111,9 +111,17 @@ class SiteController extends Controller
         ]);
     }
     
-    public function actionProductDetail() {
+    public function actionProductDetail($id = NULL) {
         
-        return $this->render('productDetail');
+        $product_obj = new Product;
+        $product = $product_obj->getProductDetail($id);
+        
+        $relatedProducts = Product::getRecomendProducts();
+        
+        return $this->render('productDetail', [
+            'product' => $product,
+            'relatedProducts' => $relatedProducts,
+        ]);
     }
 
     /**

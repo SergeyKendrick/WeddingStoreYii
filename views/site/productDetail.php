@@ -1,45 +1,33 @@
-<div class="single-sec">
+<?php
+
+use yii\helpers\Url;
+
+?>
+ 
+
+ 
+ <div class="single-sec">
 	 <div class="container">
 		 <ol class="breadcrumb">
-			 <li><a href="index.html">Home</a></li>
-			 <li class="active">Products</li>
+			 <li><a href="/">Главная</a></li>
+			 <li class="active">Товары</li>
 		 </ol>
 		 <!-- start content -->	
 		 <div class="col-md-9 det">
 				 <div class="single_left">
 					 <div class="flexslider">
 							<ul class="slides">
-								<li data-thumb="images/s11.jpeg">
-									<img src="images/s11.jpeg" />
-								</li>
-								<li data-thumb="images/s22.jpeg">
-									<img src="images/s22.jpeg" />
-								</li>
-								<li data-thumb="images/s33.jpeg">
-									<img src="images/s33.jpeg" />
-								</li>
-								<li data-thumb="images/s44.jpeg">
-									<img src="images/s44.jpeg" />
-								</li>
+							    <?php foreach($product['photo_preview'] as $photo): ?>
+								<li data-thumb="<?=$photo?>">
+									<img src="<?=$photo?>" />
+                                </li>
+                                <?php endforeach; ?>
 							</ul>
 						</div>
-						<!-- FlexSlider -->
-						  <script defer src="js/jquery.flexslider.js"></script>
-						<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
-							<script>
-						// Can also be used with $(document).ready()
-						$(window).load(function() {
-						  $('.flexslider').flexslider({
-							animation: "slide",
-							controlNav: "thumbnails"
-						  });
-						});
-						</script>
 				 </div>
 				  <div class="single-right">
-					 <h3>American Diamond Famina Ruby Copper, Brass Jewel Set</h3>
-					 <div class="id"><h4>Артикул: SB2379</h4></div>
+					 <h3><?=$product['title']?></h3>
+					 <div class="id"><h4>Артикул: <?=$product['sku']?></h4></div>
 					  <form action="" class="sky-form">
 						     <fieldset>					
 							   <section>
@@ -62,9 +50,14 @@
 					  <div class="cost">
 						 <div class="prdt-cost">
 							 <ul>
-								 <li>Цена: <del>$ 55000</del></li>								 
-								 <li>Окончательная цена:</li>
-								 <li class="active">$ 35000</li>
+							     <?php if($product['pricedown']): ?>
+                                     <li>Цена: <del>$ <?=$product['price']?></del></li>								 
+                                     <li>Окончательная цена:</li>
+                                     <li class="active">$ <?=$product['pricedown']?></li>
+								 <?php else: ?>
+                                     <li>Цена:</li>
+                                     <li class="active">$ <?=$product['price']?></li>
+								 <?php endif; ?>
 								 <a href="#">Купить сейчас</a>
 							 </ul>
 						 </div>
@@ -72,7 +65,7 @@
 							 <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Введите пин-код, чтобы получить скидку</p>
 							 <form class="navbar-form navbar-left" role="search">
 								  <div class="form-group">
-									<input type="text" class="form-control" placeholder="Введите пин-код">
+									<input type="text" class="form-control fix-width" placeholder="Введите пин-код">
 								  </div>
 								  <button type="submit" class="btn btn-default">Проверить</button>
 							 </form>
@@ -81,16 +74,16 @@
 					  </div>
 					  <div class="item-list">
 						 <ul>
-							 <li>Материал: Silver,Gold</li>
-							 <li>Цвет: Red</li>
-							 <li>Тип: Earring & Pendant Set</li>
-							 <li>Бренд: American Diamond</li>
-							 <li><a href="#">Click here for more details</a></li>
+							 <li>Материал: <?=$product['base_material']?></li>
+							 <li>Цвет: <?=$product['color']?></li>
+							 <li>Тип: <?=$product['type']?></li>
+							 <li>Бренд: <?=$product['brand']?></li>
+							 <li><a href="#">Подрбные параметры</a></li>
 						 </ul>
 					  </div>
 					  <div class="single-bottom1">
 						<h6>Описание</h6>
-						<p class="prod-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam. Ut wisi enim ad minim veniam iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+						<p class="prod-desc"><?=$product['description']?></p>
 					 </div>					 
 				  </div>
 				  <div class="clearfix"></div>
@@ -109,18 +102,20 @@
 				  </div>
 		  <!---->
 		  <div class="product-table">
-				 <h3> Наименование. Параметры</h3>
+				 <h3> <?=$product['title']?>. Параметры</h3>
 				 <div class="item-sec">
 					 <h4>Особенности</h4>
 					 <table class="table table-bordered">
 					 <tbody>
+					     <?php if($product['pearl_type']): ?>
 							<tr>
 								<td><p>Тип жемчуга</p></td>
-								<td><p>Plastic</p></td>
+								<td><p><?=$product['pearl_type']?></p></td>
 							</tr>
+				         <?php endif; ?>
 							<tr>
 								<td><p>Цвет</p></td>
-								<td><p>Gold</p></td>
+								<td><p><?=$product['color']?></p></td>
 							</tr>														
 						</tbody>
 						</table>
@@ -131,88 +126,62 @@
 					 <tbody>
 							<tr>
 								<td><p>Основной материал</p></td>
-								<td><p>Alloy</p></td>
+								<td><p><?=$product['base_material']?></p></td>
 							</tr>
 							<tr>
 								<td><p>Бренд</p></td>
-								<td><p>Ethnic Jewels</p></td>
+								<td><p><?=$product['brand']?></p></td>
 							</tr>
+							<?php if($product['pearl_type']): ?>
 							<tr>
 								<td><p>Драгоценный/искусственный</p></td>
-								<td><p>Fashion Jewellery</p></td>
+								<td><p><?=$product['precious_artif']?></p></td>
 							</tr>
+							<?php endif; ?>
 							<tr>
 								<td><p>Номер модели</p></td>
-								<td><p>ID 4523</p></td>
+								<td><p>ID <?=$product['model_number']?></p></td>
 							</tr>
 							<tr>
 								<td><p>Повод применения</p></td>
-								<td><p>Wedding & Engagement</p></td>
+								<td><p><?=$product['occasion']?></p></td>
 							</tr>
 							<tr>
 								<td><p>Тип</p></td>
-								<td><p>Earring & Necklace Set</p></td>
+								<td><p><?=$product['type']?></p></td>
 							</tr>
 							<tr>
 								<td><p>Идеален для..</p></td>
-								<td><p>Women</p></td>
+								<td><p><?=$product['ideal_for']?></p></td>
 							</tr>							
 						</tbody>
 						</table>
 				 </div>	
 			</div>
 		 <div class="arrivals">	
-		 <h3>Related Products</h3>
+		 <h3>Рекомендуемые товары</h3>
 		 <div class="arrival-grids">			 
 			 <ul id="flexiselDemo1">
-				 <li>
-					 <a href="product.html"><img src="images/p2.jpg" alt=""/>	
-					 <div class="arrival-info">
-						 <h4>Jewellerys #1</h4>
-						 <p>Rs 12000</p>
-						 <span class="pric1"><del>Rs 18000</del></span>
-						 <span class="disc">[12% Off]</span>
-					 </div>
-					 <div class="viw">
-						<a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
-					 </div></a>				 
+			     <?php foreach($relatedProducts as $product): ?>
+			     <li>
+					 <a href="<?=Url::toRoute(['site/product-detail', 'id' => $product['id']]) ?>">
+					     <img height="200" src="<?=$product['photo_preview'];?>" alt=""/>	
+                         <div class="arrival-info">
+                             <h4><?=$product['title']?></h4>
+                             <?php if($product['discount']): ?>
+                                 <p>$<?=$product['pricedown'];?></p>
+                                 <span class="pric1"><del>$<?=$product['price'];?></del></span>
+                                 <span class="disc">[<?=$product['discount']?>% Off]</span>
+                             <?php else: ?>
+                                 <p>$<?=$product['price'];?></p>
+                             <?php endif; ?>
+                         </div>
+                         <div class="viw">
+                            <a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Посмотреть</a>
+                         </div>
+					 </a>
 				 </li>
-				 <li>
-					 <a href="product.html"><img src="images/p3.jpg" alt=""/>
-						<div class="arrival-info">
-						 <h4>Jewellerys #1</h4>
-						 <p>Rs 14000</p>
-						 <span class="pric1"><del>Rs 15000</del></span>
-						 <span class="disc">[10% Off]</span>
-					 </div>
-					 <div class="viw">
-						<a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
-					 </div></a>						 
-				 </li>
-				 <li>
-					 <a href="product.html"><img src="images/p4.jpg" alt=""/>	
-						<div class="arrival-info">
-						 <h4>Jewellerys #1</h4>
-						 <p>Rs 4000</p>
-						 <span class="pric1"><del>Rs 8500</del></span>
-						 <span class="disc">[45% Off]</span>
-					 </div>
-					 <div class="viw">
-						<a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
-					 </div></a>						 
-				 </li>
-				 <li>
-				    <a href="product.html"> <img src="images/p5.jpg" alt=""/>	
-						<div class="arrival-info">
-						 <h4>Jewellerys #1</h4>
-						 <p>Rs 18000</p>
-						 <span class="pric1"><del>Rs 21000</del></span>
-						 <span class="disc">[8% Off]</span>
-					 </div>
-					 <div class="viw">
-						<a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick View</a>
-					 </div></a>						 
-				 </li>
+				 <?php endforeach; ?>
 				</ul>
 				<script type="text/javascript">
 				 $(window).load(function() {			
@@ -245,7 +214,7 @@
 			</div>			
 			<!---->
 		    </div>
-		    <!--Здесь сайдбар-->
+		    <?=$this->render('/partials/rsidebar.php'); ?>
 		     <div class="clearfix"></div>
 	  </div>	 
 </div>

@@ -931,7 +931,7 @@ ul.dropdown-menu1 li a:hover{
 }
 .prdt-cost{
 	float:left;
-	  margin-right: 13%
+	  margin-right: 7%
 }
 .prdt-cost ul li{
 	display:block;
@@ -960,6 +960,10 @@ font-size: 0.8em;
 .check{
 	float:left;
 	width:60%;
+}
+.fix-width {
+    max-width: 150px;
+    width: 100%;
 }
 .check p{
 	font-size:0.85em;

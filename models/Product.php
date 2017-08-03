@@ -282,5 +282,20 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
+    public function getProductDetail($id) {
+        $product = Product::find()->asArray()->where(['id' => $id])->one();
+        
+        $product['photo_preview'] = $this->getImagesArray($id); 
+        foreach($product['photo_preview'] as &$photo) {
+            $photo = ImageUpload::getFolderProductForView().$photo;
+        }
+        
+        if($product['discount']) {
+            $product['pricedown'] = $product['price'] - $product['price']/100*$product['discount'];
+        }
+        
+        return $product;
+    }
+    
 }
 
