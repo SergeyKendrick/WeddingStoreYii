@@ -32,12 +32,13 @@ use yii\helpers\Url;
 						     <fieldset>					
 							   <section>
 							     <div class="rating">
-							     <?php for($i = 1; $i < $product['rating']+1; $i++): ?> 
+							     <?php for($i = 1; $i <= $product['rating']; $i++): ?>
 								     <a href="<?=Url::toRoute(['site/rating', 'product_id' => $product['id'], 'count' => $i]) ?>"><i class="icon-star"></i></a>
 								 <?php endfor; ?>
-								 <?php for($i = $product['rating']+1; $i <= 5 ; $i++): ?> 
-								     <a href="<?=Url::toRoute(['site/rating', 'product_id' => $product['id'], 'count' => $i]) ?>"><i class="icon-star" style="background: #000; mrgin-right: 5px;"></i></a>
+								 <?php for($i = (int)$product['rating']+1; $i <= 5 ; $i++): ?> 
+								     <a href="<?=Url::toRoute(['site/rating', 'product_id' => $product['id'], 'count' => $i]) ?>"><i class="icon-star" style="background: #000; margin-right: 5px;"></i></a>
 								 <?php endfor; ?>
+								     <span style="margin-left: 10px;"><?=$product['rating']?> / 5</span>
 								 </div>
 							  </section>
 						    </fieldset>

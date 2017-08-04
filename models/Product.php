@@ -322,8 +322,9 @@ class Product extends \yii\db\ActiveRecord
     
     public function getRating($product_id) {
         $model = Product::findOne($product_id);
-        return $total = ($model->voted_users) ? $total = $model->rating / $model->voted_users : $total = 0;
+        $total = ($model->voted_users) ? $total = $model->rating / $model->voted_users : $total = 0;
         
+        return round($total, 2);
     }
     
 }
