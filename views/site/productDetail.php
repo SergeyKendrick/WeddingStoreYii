@@ -24,7 +24,7 @@ use yii\helpers\Url;
                                 <?php endforeach; ?>
 							</ul>
 						</div>
-				 </div>
+				  </div>
 				  <div class="single-right">
 					 <h3><?=$product['title']?></h3>
 					 <div class="id"><h4>Артикул: <?=$product['sku']?></h4></div>
@@ -32,7 +32,12 @@ use yii\helpers\Url;
 						     <fieldset>					
 							   <section>
 							     <div class="rating">
-									<a href=""><i class="icon-star"></i></a>
+							     <?php for($i = 1; $i < $product['rating']+1; $i++): ?> 
+								     <a href="<?=Url::toRoute(['site/rating', 'product_id' => $product['id'], 'count' => $i]) ?>"><i class="icon-star"></i></a>
+								 <?php endfor; ?>
+								 <?php for($i = $product['rating']+1; $i <= 5 ; $i++): ?> 
+								     <a href="<?=Url::toRoute(['site/rating', 'product_id' => $product['id'], 'count' => $i]) ?>"><i class="icon-star" style="background: #000; mrgin-right: 5px;"></i></a>
+								 <?php endfor; ?>
 								 </div>
 							  </section>
 						    </fieldset>

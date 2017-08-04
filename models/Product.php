@@ -48,7 +48,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'price', 'discount', 'rating_id'], 'integer'],
+            [['category_id', 'price', 'discount', 'rating'], 'integer'],
             [['description'], 'string'],
             [['sku', 'title', 'brand', 'pearl_type', 'color', 'base_material', 'precious_artif', 'model_number', 'occasion', 'type', 'ideal_for'], 'string', 'max' => 255],
         ];
@@ -76,7 +76,7 @@ class Product extends \yii\db\ActiveRecord
             'type' => 'Тип',
             'ideal_for' => 'Идеален для..',
             'discount' => 'Скидка (%)',
-            'rating_id' => 'Рейтинг',
+            'rating' => 'Рейтинг',
         ];
     }
     
@@ -304,7 +304,26 @@ class Product extends \yii\db\ActiveRecord
             $product['pricedown'] = $product['price'] - $product['price']/100*$product['discount'];
         }
         
+        $product['rating'] = $this->getRating($product['id']);
+        
         return $product;
+    }
+    
+    public function setRating($product_id, $count) {
+        $model = Product::findOne($product_id);
+        $model->rating += $count;
+        $model->voted_users++;
+        
+        return $model->save(false);
+        
+        $total = ($this->voted_users) ? $total = $this->rating / $this->voted_users : $total = 0;
+        
+    }
+    
+    public function getRating($product_id) {
+        $model = Product::findOne($product_id);
+        return $total = ($model->voted_users) ? $total = $model->rating / $model->voted_users : $total = 0;
+        
     }
     
 }

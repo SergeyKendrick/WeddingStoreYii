@@ -2,7 +2,7 @@
 {margin:0;padding:0;width:100%;list-style:none;display:inline-block;position:relative;font-family:Calibri,Arial;font-size:15px}
 .memenu li{display:inline-block;text-align:left;}
 ul.memenu.skyblue {text-align: center;}
-.memenu>li>a{  font-family: 'JosefinSans-Regular';float:left;padding: 5px 25px 5px 25px;color:#caccce;font-weight:600;text-decoration:none;text-transform:uppercase;transition:color .4s ease-in-out;-moz-transition:color .4s ease-in-out;-webkit-transition:color .4s ease-in-out;-o-transition:color .4s ease-in-out}
+.memenu>li>a{  font-family: 'Kurale', serif;float:left;padding: 5px 25px 5px 25px;font-size: 15px;color:#666666;font-weight:600;text-decoration:none;text-transform:uppercase;transition:color .4s ease-in-out;-moz-transition:color .4s ease-in-out;-webkit-transition:color .4s ease-in-out;-o-transition:color .4s ease-in-out}
 .memenu>li>.mepanel {
 	position: absolute;
 	display: none;

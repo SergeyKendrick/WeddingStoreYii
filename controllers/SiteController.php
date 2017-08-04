@@ -134,6 +134,15 @@ class SiteController extends Controller
             'types' => $types,
         ]);
     }
+    
+    public function actionRating($product_id, $count) {
+        $product = new Product;
+        if(!$product->setRating($product_id, $count)) {
+            return "Error";
+        }
+        
+        return $this->redirect(['site/product-detail', 'id' => $product_id]);
+    }
 
     /**
      * Login action.

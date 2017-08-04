@@ -18,6 +18,7 @@ AppAsset::register($this);
 <html>
 <head>
 <title><?= Html::encode($this->title) ?></title>
+<link href="https://fonts.googleapis.com/css?family=Kurale&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?= Html::csrfMetaTags() ?>
