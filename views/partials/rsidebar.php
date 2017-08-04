@@ -22,13 +22,7 @@ use yii\helpers\Url;
                      </div>
                   </div>
               <?php endforeach; ?>						  
-
-
-              <!--script-->
-            <script>
-                
-            </script>
-            <!-- script -->					 
+			 
      </section>
      <section  class="sky-form">
          <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Скидки</h4>

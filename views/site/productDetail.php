@@ -32,17 +32,7 @@ use yii\helpers\Url;
 						     <fieldset>					
 							   <section>
 							     <div class="rating">
-									<input type="radio" name="stars-rating" id="stars-rating-5">
-									<label for="stars-rating-5"><i class="icon-star"></i></label>
-									<input type="radio" name="stars-rating" id="stars-rating-4">
-									<label for="stars-rating-4"><i class="icon-star"></i></label>
-									<input type="radio" name="stars-rating" id="stars-rating-3">
-									<label for="stars-rating-3"><i class="icon-star"></i></label>
-									<input type="radio" name="stars-rating" id="stars-rating-2">
-									<label for="stars-rating-2"><i class="icon-star"></i></label>
-									<input type="radio" name="stars-rating" id="stars-rating-1">
-									<label for="stars-rating-1"><i class="icon-star"></i></label>
-									<div class="clearfix"></div>
+									<a href=""><i class="icon-star"></i></a>
 								 </div>
 							  </section>
 						    </fieldset>
@@ -78,7 +68,7 @@ use yii\helpers\Url;
 							 <li>Цвет: <?=$product['color']?></li>
 							 <li>Тип: <?=$product['type']?></li>
 							 <li>Бренд: <?=$product['brand']?></li>
-							 <li><a href="#">Подрбные параметры</a></li>
+							 <li><a href="#main">Подрбные параметры</a></li>
 						 </ul>
 					  </div>
 					  <div class="single-bottom1">
@@ -89,7 +79,7 @@ use yii\helpers\Url;
 				  <div class="clearfix"></div>
 					
 		  <!---->
-		  <div class="product-table">
+		  <div id="main" class="product-table">
 				 <h3> <?=$product['title']?>. Параметры</h3>
 				 <div class="item-sec">
 					 <h4>Особенности</h4>

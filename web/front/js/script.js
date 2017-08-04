@@ -60,7 +60,9 @@ $(window).load(function(){
         min: 0,
         max: 100000,
         values: [ 0, 100000 ],
-        slide: function( event, ui ) {  $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        slide: function( event, ui ) {  
+            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            
         }
     });
     
