@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'first_name')->textInput(['autofocus' => true, 'class' => 'textbox', 'placeholder' => 'Имя'])?>
                     <?= $form->field($model, 'last_name')->textInput(['class' => 'textbox', 'placeholder' => 'Фамилия'])?>
                     <?= $form->field($model, 'email')->textInput(['class' => 'textbox', 'placeholder' => 'E-mail'])?>
-                    <?= $form->field($model, 'mobile')->textInput(['class' => 'textbox', 'placeholder' => 'Телефон'])?>
+                    <?= $form->field($model, 'mobile')->textInput(['class' => 'textbox', 'placeholder' => 'Телефон', 'maxlength' => '11'])?>
                     
                         <?= $form->field($model, 'sex', ['radioTemplate' => '<div class=\"row\"><label class="radio col-md-4">{input}</label>{label}</div>'])->radioList([
                             '0' => 'Женский',
@@ -62,17 +62,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			 <div class="registration_form">
 			 <!-- Form -->
 			     <?php $form = ActiveForm::begin([
-                    'id' => 'login-form',
+                    'id' => 'entry-form',
                     'layout' => 'horizontal',
                     'fieldConfig' => [
-                        'template' => "<h5>{label}</h5>\n{input}\n<div class=\"col-lg-8\">{error}</div>",
+                        'template' => "\n{input}\n<div class=\"col-lg-8\">{error}</div>",
                         'labelOptions' => ['class' => ''],
                     ],
                 ]); ?>
 
-                    <?= $form->field($login, 'email')->textInput(['autofocus' => true, 'class' => 'textbox',])->label('Логин:') ?>
+                    <?= $form->field($login, 'email')->textInput(['autofocus' => true, 'class' => 'textbox', 'placeholder' => 'E-mail']) ?>
 
-                    <?= $form->field($login, 'password')->passwordInput(['class' => 'textbox',])->label('Пароль:') ?>
+                    <?= $form->field($login, 'password')->passwordInput(['class' => 'textbox', 'placeholder' => 'Пароль']) ?>
 
                     <?= $form->field($login, 'rememberMe')->checkbox([
                         'template' => "<div class=\"row\" style=\"margin-bottom: 10px;\"><div class=\"col-lg-1\" style=\"text-align: center;\">{input}</div><div class=\"col-lg-4\">{label}</div>\n<p>{error}</p></div>",

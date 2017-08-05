@@ -52,7 +52,7 @@ $this->title = 'Wedding store';
 		 </div>
 		 <div class="col-md-4 bride-grid">
 				<div class="content-grid l-grids">
-						<img src="/front/images/brid.jpg" alt=""/>
+						<img src="/front/images/brid.jpg" style="width: 98%; margin: 0 auto; display: block;" alt=""/>
 						
 				 <h3>Bridesmaid Dresses</h3>
 			 </div>

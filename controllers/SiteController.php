@@ -13,6 +13,7 @@ use app\models\Product;
 use app\models\ImageUpload;
 use app\models\Category;
 use app\models\SignupForm;
+use app\models\User;
 use yii\data\Pagination;
 
 class SiteController extends Controller
@@ -181,15 +182,23 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        
+        
 
         $login = new LoginForm();
         $model = new SignupForm();
         
         if(Yii::$app->request->post()) {
-            $model->load(Yii::$app->request->post());
-            if($model->signup()) {
-                return $this->redirect(['site/login']);
-            }   
+            if(!$model->load(Yii::$app->request->post())) {
+                if ($login->load(Yii::$app->request->post()) && $login->login()) {
+                    return $this->goHome();
+                }
+            } else {
+                $model->load(Yii::$app->request->post());
+                if($model->signup()) {
+                    return $this->redirect(['site/login']);
+                } 
+            }
         }
         
         return $this->render('signup', ['model'=>$model, 'login'=>$login]);
@@ -221,5 +230,15 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    
+    public function actionOffice() {
+        $user = new User;
+        $id = Yii::$app->user->id;
+        $userInfo = $user->findByUserId($id);
+        
+        return $this->render('office', [
+            'userInfo' => $userInfo,
+        ]);
     }
 }

@@ -40,7 +40,19 @@ AppAsset::register($this);
 			<div class="top_left">
 				<ul>
 					<li class="top_link">Email:<a href="mailto:info@example.com">admin@weddingstore.com</a></li>|
-					<li class="top_link"><a href="<?=Url::toRoute(['site/login'])?>">Мой аккаунт</a></li>					
+					<li class="top_link">
+                    <?php if(Yii::$app->user->isGuest): ?>
+					    <a href="<?=Url::toRoute(['site/login'])?>">Мой аккаунт</a>
+				    <?php else: ?>
+				        <a href="<?=Url::toRoute(['site/office'])?>">Мой кабинет</a>
+                    </li>|
+                       
+                        <?=Html::beginForm(['/site/logout'], 'post', ['class' => 'form-logout']).Html::submitButton(
+                            'Выйти ('.Yii::$app->user->identity->first_name.')',
+                            ['class' => 'btn btn-link logout',]
+                        ).Html::endForm()?>
+				    <?php endif; ?>
+				    					
 				</ul>
 			</div>
 				<div class="clearfix"> </div>
