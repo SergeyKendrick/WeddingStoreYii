@@ -86,4 +86,20 @@ $(function () {
     });
 });
 
+$('button.submit-form').click(function() {
+   if($('#pass').val() != $('#retypePass').val()) {
+       
+       setTimeout(passValid(), 3000);
+       
+       return false;
+   } 
+    
+});
+
+function passValid() {
+    $('.field-pass .help-block-error, .field-pass .help-block-error, .field-retype-pass .help-block-error, .field-retype-pass .help-block-error' ).text('Введенные пароли не совпадают.');
+   $('.help-block-error').css('color', 'red');
+   $(".registration_left:first-child input[type='password']").css('border-color', 'red');
+}
+
 

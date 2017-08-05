@@ -1259,9 +1259,6 @@ line-height: 1.7em;
 .registration_form{
 	display: block;
 }
-.registration_form div{
-	padding:10px 0;
-}
 .sky_form1{
 	margin-bottom: -30px;
 }
@@ -1278,6 +1275,10 @@ line-height: 1.7em;
 }
 .radio{
 	margin-top:0;
+    max-width: 100px;
+    display: inline-block;
+    width: 100%;
+
 }
 .checkbox{
 	font-size:0.9em;

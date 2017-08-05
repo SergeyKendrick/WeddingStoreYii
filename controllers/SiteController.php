@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\Product;
 use app\models\ImageUpload;
 use app\models\Category;
+use app\models\SignupForm;
 use yii\data\Pagination;
 
 class SiteController extends Controller
@@ -174,6 +175,24 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    
+    public function actionSignup() {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $login = new LoginForm();
+        $model = new SignupForm();
+        
+        if(Yii::$app->request->post()) {
+            $model->load(Yii::$app->request->post());
+            if($model->signup()) {
+                return $this->redirect(['site/login']);
+            }   
+        }
+        
+        return $this->render('signup', ['model'=>$model, 'login'=>$login]);
     }
 
     /**

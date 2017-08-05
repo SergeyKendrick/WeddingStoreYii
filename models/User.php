@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\IdentityInterface;
 /**
  * This is the model class for table "user".
  *
@@ -16,8 +16,33 @@ use Yii;
  * @property string $password
  * @property integer $isAdmin
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    
+    public static function findIdentity($id)
+    {
+      return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+      return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+      return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+      return $this->authKey;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+      return $this->authKey === $authKey;
+    }
     /**
      * @inheritdoc
      */
@@ -53,6 +78,13 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Пароль',
             'isAdmin' => 'Это админ?',
         ];
+    }
+    
+    public function create() {
+        return $this->save(false);
+    }
+    public function validatePassword($password) {
+        return ($this->password == $password) ? true : false; 
     }
     
     public function admin($id) {

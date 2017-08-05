@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		 <h2><?=$this->title?></h2>
 		 <div class="col-md-6 log">			 
 				<p>Добро пожаловать, заполните, пожалуйста, поля ниже.</p>
-				<p>Если Вы здесь первый раз, <span>нажмите здесь</span></p>
+				<p>Если Вы здесь первый раз, <a href="<?=Url::toRoute(['site/signup'])?>">нажмите здесь</a></p>
 				 
 				<?php $form = ActiveForm::begin([
                     'id' => 'login-form',
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])->label('Запомнить меня') ?>
 
                     <?= Html::submitButton('Войти', ['class' => 'submit-form']) ?>
-                    <a class="acount-btn" href="account.html">Создать новый аккаунт</a>
+                    <a class="acount-btn" href="<?=Url::toRoute(['site/signup'])?>">Создать новый аккаунт</a>
 
                 <?php ActiveForm::end(); ?>
                 <a href="#">Forgot Password ?</a>
