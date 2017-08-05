@@ -24,10 +24,10 @@ class AppAsset extends AssetBundle
         'front/css/jquery-ui.css',
         'front/css/memenu.css',
         'front/css/style.css',
+        'front/css/font-awesome.min.css',
         
     ];
     public $js = [
-        'front/js/jquery.min.js',
         'front/js/jquery-ui.min.js',
         'front/js/memenu.js',
         'front/js/simpleCart.min.js',

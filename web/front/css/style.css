@@ -28,6 +28,18 @@ body a{
    src: url(../fonts/JosefinSans-Light.ttf) format('truetype');
 }
 
+.fa-star:hover {
+    color: darkorange;
+}
+
+.star-active {
+    color: darkorange;
+}
+
+#login-form > div {
+    margin: 10px auto;
+}
+
  ul{
 	padding: 0;
 	margin: 0;
@@ -1118,7 +1130,6 @@ font-weight: 400;
 border: 1px solid #D6D6D6;
 outline: none;
 color: #5d5959;
-margin-bottom:2em;
 }
 .log form input[type="submit"]{
 display:inline-block;
@@ -1137,6 +1148,31 @@ display:inline-block;
 -moz-transition: 0.5s all;
 -o-transition: 0.5s all;
 }
+
+.submit-form {
+display:inline-block;
+  background: #00a0dc;
+  padding: 0.6em 2em;
+  font-size:1em;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  border:none;
+  outline:none;
+  margin-right:2em;
+  margin-bottom:1em;
+  transition: 0.5s all;
+-webkit-transition: 0.5s all;
+-moz-transition: 0.5s all;
+-o-transition: 0.5s all;
+}
+
+.submit-form:hover{
+	background:#caccce;
+	color:#fff;
+	text-decoration:none;
+}
+
 .log form input[type="submit"]:hover,a.acount-btn:hover{
 	background:#caccce;
 	color:#fff;

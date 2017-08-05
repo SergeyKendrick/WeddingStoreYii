@@ -70,3 +70,20 @@ $(window).load(function(){
 
 });
 
+$('.fa-star').hover(function() {
+    $(this).parent().prevAll().addClass('star-active'); 
+}, function() {
+    $(this).parent().prevAll().removeClass('star-active'); 
+});
+
+$(function () { 
+    $('memenu skyblue a').each(function () {
+        var location = window.location.href;
+        var link = this.href; 
+        if(location == link) {
+            $(this).addClass('active');
+        }
+    });
+});
+
+

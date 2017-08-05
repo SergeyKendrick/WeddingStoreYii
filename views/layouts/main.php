@@ -21,6 +21,7 @@ AppAsset::register($this);
 <link href="https://fonts.googleapis.com/css?family=Kurale&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="front/js/jquery.min.js"></script>
 <?= Html::csrfMetaTags() ?>
 <?php $this->head() ?>
 </head>
