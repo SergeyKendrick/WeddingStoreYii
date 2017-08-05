@@ -79,12 +79,12 @@ AppAsset::register($this);
                     </li>
                     <li class="grid"><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>
             <div class="cart box_1">
-                <a href="checkout.html">
+                <a href="<?=Url::toRoute(['site/cart'])?>">
                     <h3> <div class="total">
                     <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)</div>
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></h3>
                 </a>
-                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                <p><a href="javascript:;" class="simpleCart_empty">Корзина пуста</a></p>
                 <div class="clearfix"> </div>
             </div>
             <div class="clearfix"> </div>

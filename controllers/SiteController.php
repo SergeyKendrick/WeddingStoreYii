@@ -241,4 +241,9 @@ class SiteController extends Controller
             'userInfo' => $userInfo,
         ]);
     }
+    
+    public function actionCart() {
+        
+        return $this->render('cart');
+    }
 }
