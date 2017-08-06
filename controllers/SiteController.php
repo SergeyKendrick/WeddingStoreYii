@@ -97,13 +97,6 @@ class SiteController extends Controller
         ]);
     }
     
-    public function actionAddCart($item_quantity, $product_id) {
-        $cart = new Cart; 
-        $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id);
-        
-        return $this->redirect($_SERVER['HTTP_REFERER']);
-    }
-    
     public function actionBrend($title = NULL) {
         
         $product_obj = new Product;
@@ -265,6 +258,13 @@ class SiteController extends Controller
             'total_price_orders' => $total_price_orders,
             'total_price' => $total_price,
         ]);
+    }
+    
+    public function actionAddCart($item_quantity, $product_id, $price) {
+        $cart = new Cart; 
+        $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id, $price);
+        
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
     
     public function actionDeleteOrder($id) {

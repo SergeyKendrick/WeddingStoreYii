@@ -38,6 +38,7 @@ use yii\widgets\Pjax;
                             <form data-pjax="1" action="<?=Url::toRoute(['site/add-cart']) ?>">
                                 <input type="text" name="item_quantity" class="item_quantity" value="1" />
                                 <input type="hidden" name="product_id" class="item_quantity" value="<?=$product['id']?>" />
+                                <input type="hidden" name="price" class="item_quantity" value="<?=$product['price']?>" />
                                 <input type="submit" class="item_add items" value="Добавить">
                             </form>
                         </div>													

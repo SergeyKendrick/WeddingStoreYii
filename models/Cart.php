@@ -29,6 +29,7 @@ class Cart extends \yii\db\ActiveRecord
         return [
             [['product_id'], 'integer'],
             [['user_id'], 'integer'],
+            [['price'], 'integer'],
         ];
     }
 
@@ -41,16 +42,18 @@ class Cart extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'product_id' => 'Product ID',
+            'price' => 'Price',
         ];
     }
     
-    public function addToCart($user_id, $items_count, $product_id) {
+    public function addToCart($user_id, $items_count, $product_id, $price) {
         
         for($i = 0; $i < $items_count; $i++) {
             $this->id = false;
             $this->isNewRecord = true;
             $this->user_id = $user_id;
             $this->product_id = $product_id;
+            $this->price = $price;
 
             $this->save();
         }
@@ -62,25 +65,36 @@ class Cart extends \yii\db\ActiveRecord
         $products_id = Cart::find()->asArray()->select('product_id')->where(['user_id' => Yii::$app->user->id])->orderBy('product_id')->all();
         
         foreach($products_id as $id) {
-            $orders[] = Product::find()->asArray()->select('`id`, `title`, `price`')->where(['id' => $id['product_id']])->one();
+            $orders[] = Product::find()->asArray()->select('`id`, `title`, `price`, `discount`')->where(['id' => $id['product_id']])->one();
         }
         
-        foreach($orders as &$order) {
-            $order['count'] = Cart::find()->where(['product_id' => $order['id']])->count();
-            $order['photo_preview'] = Product::getPreviewPhoto($order['id']);
-            $order['total_price'] = $order['price'] * $order['count'];
-        }
+        if($orders) {
         
-        $elem = $orders[0]['id'];
-        for($i = 1; $i < Cart::getCountOrders(); $i++) {
-            if($elem == $orders[$i]['id']) {
-                unset($orders[$i]);
-            } else {
-                $elem = $orders[$i]['id'];
+            foreach($orders as &$order) {
+                $order['count'] = Cart::find()->where(['product_id' => $order['id']])->count();
+                $order['photo_preview'] = Product::getPreviewPhoto($order['id']);
+                if($order['discount']) {
+                    $order['price'] = $order['price'] - $order['price'] / 100 * $order['discount'];
+                    $order['total_price'] = $order['price'] * $order['count'];
+                } else {
+                    $order['total_price'] = $order['price'] * $order['count'];
+                }
             }
-        }
+
+            $elem = $orders[0]['id'];
+            for($i = 1; $i < Cart::getCountOrders(); $i++) {
+                if($elem == $orders[$i]['id']) {
+                    unset($orders[$i]);
+                } else {
+                    $elem = $orders[$i]['id'];
+                }
+            }
+            
+            return $orders;
         
-        return $orders;
+        }
+    
+            return NULL;
     }
     
     public function deleteOrder($product_id) {
@@ -89,13 +103,8 @@ class Cart extends \yii\db\ActiveRecord
     }
     
     public static function getTotal() {
-        $products_id = Cart::find()->asArray()->select('product_id')->where(['user_id' => Yii::$app->user->id])->orderBy('product_id')->all();
-        
-        foreach($products_id as $id) {
-            $products_sum = Product::find()->asArray()->select('price')->where(['id' => $id['product_id']])->one();
-            $total += $products_sum['price'];
-        }
-        
+        $total = Cart::find()->where(['user_id' => Yii::$app->user->id])->sum('price');
+            
         return $total;
         
     }

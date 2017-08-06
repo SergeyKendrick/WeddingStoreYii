@@ -26,6 +26,7 @@ use yii\widgets\Pjax;
 							<li><span>Итог</span></li>
 							<div class="clearfix"> </div>
 						  </ul>
+						  <?php if($orders): ?>
 						  <?php foreach($orders as $order): ?>
 						  <ul class="cart-header">
                                 <a data-pjax="1" class="close1" href="<?=Url::toRoute(['site/delete-order', 'id' => $order['id']])?>"> </a>
@@ -38,6 +39,9 @@ use yii\widgets\Pjax;
                                 <div class="clearfix"> </div>
 				          </ul>
 				          <?php endforeach; ?>
+				          <?php else: ?>
+				          <p>Корзина пуста</p>
+				          <?php endif; ?>
 					 </div>
 					 <?php Pjax::end(); ?>	
 				  </div>				  
