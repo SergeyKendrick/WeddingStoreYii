@@ -79,7 +79,7 @@ class Category extends \yii\db\ActiveRecord
     }
     
     public function getAllCategories() {
-        $globalCategories = GlobalCategory::getCategorie();
+        $globalCategories = GlobalCategory::getCategories();
         
         foreach ($globalCategories as &$globalCategory) {
             $globalCategory['sub_categories'] = Category::find()->asArray()->select('id, title')->where(['global_category_id' => $globalCategory['id']])->all();

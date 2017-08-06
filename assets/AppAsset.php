@@ -28,13 +28,13 @@ class AppAsset extends AssetBundle
         
     ];
     public $js = [
+        'front/js/jquery.min.js',
         'front/js/jquery-ui.min.js',
         'front/js/memenu.js',
         'front/js/simpleCart.min.js',
+        'front/js/jquery.flexslider.js',
         'front/js/script.js',
         'front/js/jquery.flexisel.js',
-        'front/js/jquery.flexslider.js',
-
         
     ];
     

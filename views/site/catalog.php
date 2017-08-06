@@ -3,7 +3,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-
+use yii\widgets\Pjax;
 ?>
 
  
@@ -13,7 +13,7 @@ use yii\widgets\LinkPager;
 		  <li><a href="index.html">Главная</a></li>
 		  <li class="active">Товары</li>
 		 </ol>
-			<h2>Наши товары</h2>			
+			<h2>Наши товары</h2>	
 		 <div class="col-md-9 product-model-sec">
                 <?php if(!$products) echo "<h3>В данном разделе товаров нет</h3>"; ?>
        
@@ -34,9 +34,12 @@ use yii\widgets\LinkPager;
                         <div class="product-info-cust prt_name">
                             <h4><?=$product['title']?></h4>
                             <p>ID: <?=$product['sku']?></p>
-                            <span class="item_price">$<?=$product['price']?></span>								
-                            <input type="text" class="item_quantity" value="1" />
-                            <input type="button" class="item_add items" value="Добавить">
+                            <span class="item_price">$<?=$product['price']?></span>
+                            <form data-pjax="1" action="<?=Url::toRoute(['site/add-cart']) ?>">
+                                <input type="text" name="item_quantity" class="item_quantity" value="1" />
+                                <input type="hidden" name="product_id" class="item_quantity" value="<?=$product['id']?>" />
+                                <input type="submit" class="item_add items" value="Добавить">
+                            </form>
                         </div>													
                         <div class="clearfix"> </div>
                     </div>

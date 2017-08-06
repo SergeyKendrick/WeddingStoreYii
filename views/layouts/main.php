@@ -9,7 +9,9 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use app\models\Cart;
 use app\components\Dropmenu;
+use yii\widgets\Pjax;
 
 AppAsset::register($this);
 ?>
@@ -81,7 +83,7 @@ AppAsset::register($this);
             <div class="cart box_1">
                 <a href="<?=Url::toRoute(['site/cart'])?>">
                     <h3> <div class="total">
-                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)</div>
+                    <span class="cart_total"><?=Cart::getTotal();?></span> (<span id="cart_count"><?=Cart::getCountOrders();?></span>)</div>
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></h3>
                 </a>
                 <p><a href="javascript:;" class="simpleCart_empty">Корзина пуста</a></p>

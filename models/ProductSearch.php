@@ -18,7 +18,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'category_id', 'price', 'discount', 'rating_id'], 'integer'],
+            [['id', 'category_id', 'price', 'discount', 'rating'], 'integer'],
             [['sku', 'title', 'description', 'brand', 'pearl_type', 'color', 'base_material', 'precious_artif', 'model_number', 'occasion', 'type', 'ideal_for'], 'safe'],
         ];
     }
@@ -65,7 +65,7 @@ class ProductSearch extends Product
             'category_id' => $this->category_id,
             'price' => $this->price,
             'discount' => $this->discount,
-            'rating_id' => $this->rating_id,
+            'rating' => $this->rating,
         ]);
 
         $query->andFilterWhere(['like', 'sku', $this->sku])

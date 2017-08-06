@@ -41,7 +41,7 @@ class GlobalCategory extends \yii\db\ActiveRecord
         ];
     }
     
-    public static function getCategorie() {
+    public static function getCategories() {
         $categories = GlobalCategory::find()->asArray()->all();
         
         return $categories;

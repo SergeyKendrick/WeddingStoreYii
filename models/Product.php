@@ -306,7 +306,7 @@ class Product extends \yii\db\ActiveRecord
         
         $product['rating'] = $this->getRating($product['id']);
         
-        return $product;
+        return $product; 
     }
     
     public function setRating($product_id, $count) {

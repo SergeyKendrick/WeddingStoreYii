@@ -14,6 +14,7 @@ use app\models\ImageUpload;
 use app\models\Category;
 use app\models\SignupForm;
 use app\models\User;
+use app\models\Cart;
 use yii\data\Pagination;
 
 class SiteController extends Controller
@@ -86,7 +87,6 @@ class SiteController extends Controller
         $categoriesForSidebar = $category_obj->getAllCategories();
         $brends = Product::getBrends();
         $types = Product::getTypesForSidebar();
-    
         
         return $this->render('catalog', [
             'products' => $data['products'],
@@ -95,6 +95,13 @@ class SiteController extends Controller
             'brends' => $brends,
             'types' => $types,
         ]);
+    }
+    
+    public function actionAddCart($item_quantity, $product_id) {
+        $cart = new Cart; 
+        $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id);
+        
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
     
     public function actionBrend($title = NULL) {
@@ -244,6 +251,27 @@ class SiteController extends Controller
     
     public function actionCart() {
         
-        return $this->render('cart');
+        $cart = new Cart;
+        $orders = $cart->getOrders();
+        $total_count = Cart::getCountOrders();
+        $total_price_orders = round(Cart::getTotal(), 2);
+        $total_price = $total_price_orders + 100;
+        
+        
+        
+        return $this->render('cart', [
+            'orders' => $orders,
+            'total_count' => $total_count,
+            'total_price_orders' => $total_price_orders,
+            'total_price' => $total_price,
+        ]);
+    }
+    
+    public function actionDeleteOrder($id) {
+        $cart = new Cart;
+        
+        if($cart->deleteOrder($id)) {
+            $this->redirect('cart');
+        }
     }
 }

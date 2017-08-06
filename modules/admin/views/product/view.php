@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'type',
             'ideal_for',
             'discount',
-            'rating_id',
+            'rating',
         ],
     ]);
     
