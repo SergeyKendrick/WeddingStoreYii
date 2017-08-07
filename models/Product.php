@@ -37,6 +37,8 @@ class Product extends \yii\db\ActiveRecord
     
     public $pricedown;
     
+    public $coupon;
+    
     public static function tableName()
     {
         return 'product';
@@ -315,9 +317,6 @@ class Product extends \yii\db\ActiveRecord
         $model->voted_users++;
         
         return $model->save(false);
-        
-        $total = ($this->voted_users) ? $total = $this->rating / $this->voted_users : $total = 0;
-        
     }
     
     public function getRating($product_id) {

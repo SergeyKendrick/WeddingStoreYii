@@ -8,6 +8,7 @@ use app\models\ProductSearch;
 use app\models\Category;
 use app\models\ProductPhoto;
 use app\models\ImageUpload;
+use app\models\Discounts;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -189,6 +190,26 @@ class ProductController extends Controller
         
         return $this->redirect(['view', 'id' => $id]);
         
+    }
+    
+    public function actionAddCoupon($id) {
+        $model = $this->findModel($id);
+        
+        
+        if(Yii::$app->request->isPost) {
+            $coupon = Yii::$app->request->post('Product');
+            
+            $discount = new Discounts;
+            
+            if($discount->saveCoupon($model->id, $coupon)) {
+                $this->redirect(['view', 'id' => $model->id]);
+            }
+            
+        }
+        
+        return $this->render('discount', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -15,6 +15,7 @@ use app\models\Category;
 use app\models\SignupForm;
 use app\models\User;
 use app\models\Cart;
+use app\models\Discounts;
 use yii\data\Pagination;
 
 class SiteController extends Controller
@@ -246,21 +247,31 @@ class SiteController extends Controller
         
         $cart = new Cart;
         $orders = $cart->getOrders();
+        
         $total_count = Cart::getCountOrders();
-        $total_price_orders = round(Cart::getTotal(), 2);
-        $total_price = $total_price_orders + 100;
-        
-        
+        if($orders) {
+            $total_price_orders = round(Cart::getTotal(), 2);
+            if($discount = Discounts::getDiscount()) {
+                $discount = $cart->getDiscountProduct($discount->product_id, $orders) / 100 * $discount->discount;
+                $total_price = $total_price_orders - $discount + 100;
+            } else {
+                $total_price = $total_price_orders + 100;
+            }
+        }
         
         return $this->render('cart', [
             'orders' => $orders,
             'total_count' => $total_count,
             'total_price_orders' => $total_price_orders,
+            'discount' => $discount,
             'total_price' => $total_price,
         ]);
     }
     
     public function actionAddCart($item_quantity, $product_id, $price) {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect('login');
+        }
         $cart = new Cart; 
         $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id, $price);
         
@@ -274,4 +285,17 @@ class SiteController extends Controller
             $this->redirect('cart');
         }
     }
+    
+    public function actionApplyCoupon($code) {
+        $discount = new Discounts;
+        
+        $discount->applyCoupon($code);
+        
+        $this->redirect(['cart']);
+    }
+    
+    public function actionArticles($address) {
+        return $this->render('/articles/'.$address.'.php');
+    }
+    
 }

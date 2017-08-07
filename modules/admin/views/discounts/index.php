@@ -26,7 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'code',
             'discount',
-
+            'product_id' => 
+            [
+                'header' => 'Товар',
+                'value' => function ($data) {
+                    return ($data->product->title) ? $data->product->title : 'Общая скидка';
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

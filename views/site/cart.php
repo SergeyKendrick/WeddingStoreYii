@@ -30,7 +30,7 @@ use yii\widgets\Pjax;
 						  <?php foreach($orders as $order): ?>
 						  <ul class="cart-header">
                                 <a data-pjax="1" class="close1" href="<?=Url::toRoute(['site/delete-order', 'id' => $order['id']])?>"> </a>
-                                <li class="ring-in"><a href="single.html" ><img src="<?=$order['photo_preview']?>" class="img-responsive" alt=""></a>
+                                <li class="ring-in"><a href="<?=Url::toRoute(['site/product-detail', 'id' => $order['id']])?>" ><img src="<?=$order['photo_preview']?>" class="img-responsive" alt=""></a>
                                 </li>
                                 <li><span><a href="<?=Url::toRoute(['site/product-detail', 'id' => $order['id']])?>"><?=$order['title']?></a></span></li>
                                 <li><span>$ <?=$order['price'];?></span></li>
@@ -52,11 +52,11 @@ use yii\widgets\Pjax;
 			 <div class="price-details">
 				 <h3>Детали цены</h3>
 				 <span>Сумма товаров</span>
-				 <span class="total">$<?=$total_price_orders?></span>
+				 <span class="total">$ <?=$total_price_orders?></span>
 				 <span>Скидка</span>
-				 <span class="total">---</span>
+				 <span class="total"><?=($discount)? '$ '.$discount : '---' ?></span>
 				 <span>Стоимость доставки</span>
-				 <span class="total">$100.00</span>
+				 <span class="total">$ 100.00</span>
 				 <div class="clearfix"></div>				 
 			 </div>	
 			 <h4 class="last-price">Итоговая цена</h4>
@@ -66,7 +66,11 @@ use yii\widgets\Pjax;
 			 <div class="total-item">
 				 <h3>Опции</h3>
 				 <h4>Купоны</h4>
-				 <a class="cpns" href="#">Использовать купон</a>
+				 <a class="cpns" id="getDiscount" href="javascript::void(0);">Использовать купон</a>
+				 <form class="form-discount" action="<?=Url::toRoute(['site/apply-coupon']) ?>">
+                     <input type="text" name="code" maxlength="10" placeholder="Введите 10-значный код скидки" class="text" />
+                     <input type="submit" value="Получить скидку" class="coupon" />
+			     </form>
 				 <p><a href="#">Войдите</a>, если купоны подключены к Вашему аккаунту</p>
 			 </div>
 			</div>

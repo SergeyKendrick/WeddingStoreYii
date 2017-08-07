@@ -30,6 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'code',
             'discount',
+            'product_id' => 
+            [
+                'label' => 'Товар',
+                'value' => function ($data) {
+                    return $data->product->title;
+                }
+            ],
         ],
     ]) ?>
 

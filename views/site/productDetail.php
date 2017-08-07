@@ -53,17 +53,8 @@ use yii\helpers\Url;
                                      <li>Цена:</li>
                                      <li class="active">$ <?=$product['price']?></li>
 								 <?php endif; ?>
-								 <a href="#">Купить сейчас</a>
+								 <a href="<?=Url::toRoute(['site/add-cart', 'id' => $product['id']]) ?>">Купить сейчас</a>
 							 </ul>
-						 </div>
-						 <div class="check">
-							 <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Введите пин-код, чтобы получить скидку</p>
-							 <form class="navbar-form navbar-left" role="search">
-								  <div class="form-group">
-									<input type="text" class="form-control fix-width" placeholder="Введите пин-код">
-								  </div>
-								  <button type="submit" class="btn btn-default">Проверить</button>
-							 </form>
 						 </div>
 						 <div class="clearfix"></div>
 					  </div>

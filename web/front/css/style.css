@@ -28,6 +28,34 @@ body a{
    src: url(../fonts/JosefinSans-Light.ttf) format('truetype');
 }
 
+.form-discount {
+    margin-top: 30px;
+}
+
+.form-discount input {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.coupon {
+    border: none;
+    background:#333;
+    padding: 5px 6px;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    width: 40%;
+    transition: .5s;
+}
+
+.coupon:hover{
+	background:#00a0dc;
+}
+
 .fa-star:hover {
     color: darkorange;
 }
@@ -1785,7 +1813,7 @@ h4.last-price{
  width:25%;
  float:right;
 }
-a.order {
+.order {
   background:#333;
   padding: 10px 1.5em;
   border-radius: 7px;
@@ -1801,7 +1829,7 @@ a.order {
   width: 85%;
   margin: 3em auto 0 auto;
 }
-a.order:hover{
+.order:hover{
 	background:#00a0dc;
 }
 .total-item{

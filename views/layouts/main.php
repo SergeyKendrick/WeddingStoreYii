@@ -11,6 +11,7 @@ use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\models\Cart;
 use app\components\Dropmenu;
+use app\components\BottomCategory;
 use yii\widgets\Pjax;
 
 AppAsset::register($this);
@@ -122,7 +123,7 @@ AppAsset::register($this);
 			 <div class="col-md-3 ftr-grid">
 				 <h4>О нас</h4>
 				 <ul>
-					 <li><a href="#">Кто мы</a></li>
+					 <li><a href="<?=Url::toRoute(['articles', 'address' => 'who'])?>">Кто мы</a></li>
 					 <li><a href="contact.html">Обратная связь</a></li>
 					 <li><a href="#">Наши сайты</a></li>
 					 <li><a href="#">Новости</a></li>
@@ -135,7 +136,6 @@ AppAsset::register($this);
 				 <ul>
 					 <li><a href="#">FAQ</a></li>
 					 <li><a href="#">Покупки</a></li>
-					 <li><a href="#">Cancellation</a></li>
 					 <li><a href="#">Возврат</a></li>					 
 				 </ul>
 			 </div>
@@ -152,12 +152,7 @@ AppAsset::register($this);
 			 <div class="col-md-3 ftr-grid">
 				 <h4>Категории</h4>
 				 <ul>
-					 <li><a href="#">Свадьба</a></li>
-					 <li><a href="#">Jewellerys</a></li>
-					 <li><a href="#">Shoes</a></li>
-					 <li><a href="#">Flowers</a></li>
-					 <li><a href="#">Торты</a></li>
-					 <li><a href="#">Больше...</a></li>					 
+				     <?=BottomCategory::Widget(); ?>				 
 				 </ul>
 			 </div>
 			 <div class="clearfix"></div>

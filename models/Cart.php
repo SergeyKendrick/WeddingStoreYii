@@ -102,12 +102,19 @@ class Cart extends \yii\db\ActiveRecord
         return $order->delete();
     }
     
+    public function getDiscountProduct($id, $orders) {
+        foreach($orders as $order) {
+            if($order['id'] == $id) {
+                return $order['total_price'];
+            }
+        }
+    }
+    
     public static function getTotal() {
         $total = Cart::find()->where(['user_id' => Yii::$app->user->id])->sum('price');
-            
         return $total;
-        
     }
+
     
     public static function getCountOrders() {
         $count = Cart::find()->asArray()->select('product_id')->where(['user_id' => Yii::$app->user->id])->orderBy('product_id')->count();

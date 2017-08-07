@@ -88,4 +88,11 @@ class Category extends \yii\db\ActiveRecord
         return $globalCategories;
         
     }
+    
+    public static function getBottomCategories() {
+        $category = Category::find()->limit(6)->all();
+        
+        return $category;
+    }
+
 }

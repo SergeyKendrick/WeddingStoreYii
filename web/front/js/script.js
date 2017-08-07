@@ -2,6 +2,8 @@ addEventListener("load", function() {
     setTimeout(hideURLbar, 0); 
 }, false); 
 
+$('.form-discount').css('display', 'none');
+
 function hideURLbar() { 
     window.scrollTo(0,1); 
 }
@@ -101,6 +103,10 @@ function passValid() {
    $('.help-block-error').css('color', 'red');
    $(".registration_left:first-child input[type='password']").css('border-color', 'red');
 }
+
+$('#getDiscount').click(function() {
+   $('.form-discount').show('fast'); 
+});
 
 
 

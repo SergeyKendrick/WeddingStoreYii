@@ -18,7 +18,7 @@ class DiscountsSearch extends Discounts
     public function rules()
     {
         return [
-            [['id', 'discount'], 'integer'],
+            [['id', 'discount', 'product_id', 'user_id'], 'integer'],
             [['code'], 'safe'],
         ];
     }

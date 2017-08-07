@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Добавить изображения', ['set-images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Добавить купон к товару', ['add-coupon', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
