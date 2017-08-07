@@ -21,7 +21,10 @@ class AdminAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'ckfinder/ckfinder.js',
+        'ckeditor/ckeditor.js',
         'js/script.js',
+        
     ];
     public $depends = [
         'yii\web\YiiAsset',

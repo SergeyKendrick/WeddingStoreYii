@@ -12,6 +12,7 @@ use yii\helpers\Url;
 use app\models\Cart;
 use app\components\Dropmenu;
 use app\components\BottomCategory;
+use app\components\BottomMenu;
 use yii\widgets\Pjax;
 
 AppAsset::register($this);
@@ -120,33 +121,15 @@ AppAsset::register($this);
 <div class="footer">
 	 <div class="container">
 		 <div class="ftr-grids">
-			 <div class="col-md-3 ftr-grid">
-				 <h4>О нас</h4>
-				 <ul>
-					 <li><a href="<?=Url::toRoute(['articles', 'address' => 'who'])?>">Кто мы</a></li>
-					 <li><a href="contact.html">Обратная связь</a></li>
-					 <li><a href="#">Наши сайты</a></li>
-					 <li><a href="#">Новости</a></li>
-					 <li><a href="#">Команда</a></li>
-					 <li><a href="#">Вакансии</a></li>					 
-				 </ul>
-			 </div>
-			 <div class="col-md-3 ftr-grid">
-				 <h4>Сервис</h4>
-				 <ul>
-					 <li><a href="#">FAQ</a></li>
-					 <li><a href="#">Покупки</a></li>
-					 <li><a href="#">Возврат</a></li>					 
-				 </ul>
-			 </div>
+		     <?=BottomMenu::Widget();?>
 			 <div class="col-md-3 ftr-grid">
 				 <h4>Ваш аккаунт</h4>
 				 <ul>
-					 <li><a href="account.html">Ваш аккаунт</a></li>
-					 <li><a href="#">Персональная информация</a></li>
-					 <li><a href="#">Адреса</a></li>
-					 <li><a href="#">Дисконт</a></li>
-					 <li><a href="#">Отследить заказ</a></li>					 					 
+					 <li><a href="<?=Url::toRoute(['site/office'])?>">Ваш аккаунт</a></li>
+					 <li><a href="<?=Url::toRoute(['site/office'])?>">Персональная информация</a></li>
+					 <li><a href="<?=Url::toRoute(['site/office'])?>">Адреса</a></li>
+					 <li><a href="<?=Url::toRoute(['site/office'])?>">Дисконт</a></li>
+					 <li><a href="<?=Url::toRoute(['site/office'])?>">Отследить заказ</a></li>					 					 
 				 </ul>
 			 </div>
 			 <div class="col-md-3 ftr-grid">

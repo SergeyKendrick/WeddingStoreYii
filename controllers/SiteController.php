@@ -16,6 +16,7 @@ use app\models\SignupForm;
 use app\models\User;
 use app\models\Cart;
 use app\models\Discounts;
+use app\models\Article;
 use yii\data\Pagination;
 
 class SiteController extends Controller
@@ -294,8 +295,13 @@ class SiteController extends Controller
         $this->redirect(['cart']);
     }
     
-    public function actionArticles($address) {
-        return $this->render('/articles/'.$address.'.php');
+    public function actionArticle($id) {
+        $article_obj = new Article;
+        $article = $article_obj->getArticle($id);
+        
+        return $this->render('article', [
+            'article' => $article,
+        ]);
     }
     
 }
