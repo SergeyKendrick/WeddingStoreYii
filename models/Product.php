@@ -304,6 +304,8 @@ class Product extends \yii\db\ActiveRecord
         
         if($product['discount']) {
             $product['pricedown'] = $product['price'] - $product['price']/100*$product['discount'];
+        } else {
+            $product['pricedown'] = $product['price'];
         }
         
         $product['rating'] = $this->getRating($product['id']);

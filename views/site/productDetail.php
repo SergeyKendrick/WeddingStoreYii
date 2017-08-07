@@ -45,15 +45,15 @@ use yii\helpers\Url;
 					  <div class="cost">
 						 <div class="prdt-cost">
 							 <ul>
-							     <?php if($product['pricedown']): ?>
+							     <?php if($product['discount']): ?>
                                      <li>Цена: <del>$ <?=$product['price']?></del></li>								 
                                      <li>Окончательная цена:</li>
                                      <li class="active">$ <?=$product['pricedown']?></li>
 								 <?php else: ?>
                                      <li>Цена:</li>
-                                     <li class="active">$ <?=$product['price']?></li>
+                                     <li class="active">$ <?=$product['pricedown']?></li>
 								 <?php endif; ?>
-								 <a href="<?=Url::toRoute(['site/add-cart', 'id' => $product['id']]) ?>">Купить сейчас</a>
+								 <a href="<?=Url::toRoute(['site/add-cart', 'item_quantity' => 1, 'product_id' => $product['id'], 'price' => $product['pricedown']]) ?>">Купить сейчас</a>
 							 </ul>
 						 </div>
 						 <div class="clearfix"></div>

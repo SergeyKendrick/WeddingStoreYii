@@ -18,6 +18,8 @@ use app\models\Cart;
 use app\models\Discounts;
 use app\models\Article;
 use yii\data\Pagination;
+use yii\web\Cookie;
+use yii\web\CookieCollection;
 
 class SiteController extends Controller
 {
@@ -158,9 +160,12 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        
+        $cart = new Cart;
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $cart->addToCartAfterLogin();
             return $this->goBack();
         }
         return $this->render('login', [
@@ -184,8 +189,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
-        
 
         $login = new LoginForm();
         $model = new SignupForm();
@@ -247,33 +250,35 @@ class SiteController extends Controller
     public function actionCart() {
         
         $cart = new Cart;
-        $orders = $cart->getOrders();
+        $session = Yii::$app->session; 
+        
+        if($session['products']) {
+            $orders = $cart->getOrders($session['products']);
+        } else {
+            $orders = $cart->getOrders();
+        }
         
         $total_count = Cart::getCountOrders();
-        if($orders) {
-            $total_price_orders = round(Cart::getTotal(), 2);
-            if($discount = Discounts::getDiscount()) {
-                $discount = $cart->getDiscountProduct($discount->product_id, $orders) / 100 * $discount->discount;
-                $total_price = $total_price_orders - $discount + 100;
-            } else {
-                $total_price = $total_price_orders + 100;
-            }
-        }
+        $data = $cart->priceWork($orders);
         
         return $this->render('cart', [
             'orders' => $orders,
             'total_count' => $total_count,
-            'total_price_orders' => $total_price_orders,
-            'discount' => $discount,
-            'total_price' => $total_price,
+            'total_price_orders' => $data['total_price_orders'],
+            'discount' => $data['discount'],
+            'total_price' => $data['total_price'],
         ]);
     }
     
     public function actionAddCart($item_quantity, $product_id, $price) {
+        $cart = new Cart;
+        
         if(Yii::$app->user->isGuest) {
-            return $this->redirect('login');
+            $products = $cart->addToCartForGuest($item_quantity, $product_id, $price);
+            
+            return $this->redirect($_SERVER['HTTP_REFERER']);
         }
-        $cart = new Cart; 
+         
         $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id, $price);
         
         return $this->redirect($_SERVER['HTTP_REFERER']);

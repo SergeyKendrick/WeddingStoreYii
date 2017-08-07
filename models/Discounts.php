@@ -72,7 +72,6 @@ class Discounts extends \yii\db\ActiveRecord
     
     public static function getDiscount() {
         $discount = Discounts::find()->where(['user_id' => Yii::$app->user->id])->one();
-        
         return $discount;
     
     }
