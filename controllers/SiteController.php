@@ -17,6 +17,7 @@ use app\models\User;
 use app\models\Cart;
 use app\models\Discounts;
 use app\models\Article;
+use app\models\Sidebar;
 use yii\data\Pagination;
 use yii\web\Cookie;
 use yii\web\CookieCollection;
@@ -64,92 +65,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        $newProducts = Product::getNewProducts();
-        $recomendProducts = Product::getRecomendProducts();
-        $imgPath = ImageUpload::getFolderProduct();
-        
-        return $this->render('index', [
-            'newProducts' => $newProducts,
-            'recomendProducts' => $recomendProducts,
-            'imgPath' => $imgPath,
-        ]);
-    }
     
-    public function actionCatalog($id = NULL, $title = NULL) {
-        $product_obj = new Product;
-        $data = $product_obj->getProducts($id, $title);
-        
-        $category_obj = new Category;
-        $categoriesForSidebar = $category_obj->getAllCategories();
-        $brends = Product::getBrends();
-        $types = Product::getTypesForSidebar();
-        
-        return $this->render('catalog', [
-            'products' => $data['products'],
-            'pagination' => $data['pagination'],
-            'categoriesForSidebar' => $categoriesForSidebar,
-            'brends' => $brends,
-            'types' => $types,
-        ]);
-    }
-    
-    public function actionBrend($title = NULL) {
-        
-        $product_obj = new Product;
-        $data = $product_obj->getProductsBrend($title);
-        
-        $category_obj = new Category;
-        $categoriesForSidebar = $category_obj->getAllCategories();
-        $brends = Product::getBrends();
-        $types = Product::getTypesForSidebar();
-
-        return $this->render('catalog', [
-            'products' => $data['products'],
-            'pagination' => $data['pagination'],
-            'categoriesForSidebar' => $categoriesForSidebar,
-            'brends' => $brends,
-            'types' => $types,
-        ]);
-    }
-    
-    public function actionProductDetail($id = NULL) {
-        
-        $product_obj = new Product;
-        $product = $product_obj->getProductDetail($id);
-        
-        $category_obj = new Category;
-        $categoriesForSidebar = $category_obj->getAllCategories();
-        $brends = Product::getBrends();
-        $types = Product::getTypesForSidebar();
-        
-        $relatedProducts = Product::getRecomendProducts();
-        
-        return $this->render('productDetail', [
-            'product' => $product,
-            'relatedProducts' => $relatedProducts,
-            'categoriesForSidebar' => $categoriesForSidebar,
-            'brends' => $brends,
-            'types' => $types,
-        ]);
-    }
-    
-    public function actionRating($product_id, $count) {
-        $product = new Product;
-        if(!$product->setRating($product_id, $count)) {
-            return "Error";
-        }
-        
-        return $this->redirect(['site/product-detail', 'id' => $product_id]);
-    }
-
     /**
      * Login action.
      *
@@ -207,6 +123,92 @@ class SiteController extends Controller
         }
         
         return $this->render('signup', ['model'=>$model, 'login'=>$login]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionIndex()
+    {
+        $newProducts = Product::getNewProducts();
+        $recomendProducts = Product::getRecomendProducts();
+        $imgPath = ImageUpload::getFolderProduct();
+        
+        return $this->render('index', [
+            'newProducts' => $newProducts,
+            'recomendProducts' => $recomendProducts,
+            'imgPath' => $imgPath,
+        ]);
+    }
+    
+    public function actionCatalog($id = NULL, $title = NULL) {
+        $product_obj = new Product;
+        $data = $product_obj->getProducts($id, $title);
+        
+        $sidebar = Sidebar::getItems();
+        
+        return $this->render('catalog', [
+            'products' => $data['products'],
+            'pagination' => $data['pagination'],
+            'sidebar' => $sidebar,
+        ]);
+    }
+    
+    public function actionProductDetail($id = NULL) {
+        
+        $product_obj = new Product;
+        $product = $product_obj->getProductDetail($id);
+        
+        $sidebar = Sidebar::getItems();
+        
+        $relatedProducts = Product::getRecomendProducts();
+        
+        return $this->render('productDetail', [
+            'product' => $product,
+            'relatedProducts' => $relatedProducts,
+            'sidebar' => $sidebar,
+        ]);
+    }
+    
+    public function actionSubmit() {
+        $sidebar_obj = new Sidebar;
+        
+        if(Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $data = $sidebar_obj->getProducts($post);
+            $sidebar = Sidebar::getItems();
+        
+            return $this->render('catalog', [
+                'products' => $data['products'],
+                'pagination' => $data['pagination'],
+                'sidebar' => $sidebar,
+            ]);
+        }
+    }
+    
+    public function actionBrend($title = NULL) {
+        
+        $product_obj = new Product;
+        $data = $product_obj->getProductsBrend($title);
+        
+        $sidebar = Sidebar::getItems();
+
+        return $this->render('catalog', [
+            'products' => $data['products'],
+            'pagination' => $data['pagination'],
+            'sidebar' => $sidebar,
+        ]);
+    }
+    
+    public function actionRating($product_id, $count) {
+        $product = new Product;
+        if(!$product->setRating($product_id, $count)) {
+            return "Error";
+        }
+        
+        return $this->redirect(['site/product-detail', 'id' => $product_id]);
     }
 
     /**

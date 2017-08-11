@@ -162,10 +162,11 @@ use yii\helpers\Url;
 			<!---->
 		    </div>
 		    <?=$this->render('/partials/rsidebar.php', [
-                'categoriesForSidebar' => $categoriesForSidebar,
-                'brends' => $brends,
-                'types' => $types,
-            ]); ?>
+                'categoriesForSidebar' => $sidebar['category'],
+                'discounts' => $sidebar['discount'],
+                'brends' => $sidebar['brand'],
+                'types' => $sidebar['type'],
+            ]); ?>	
 		     <div class="clearfix"></div>
 	  </div>	 
 </div>

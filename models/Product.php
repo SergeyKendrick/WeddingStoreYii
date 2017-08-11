@@ -284,16 +284,6 @@ class Product extends \yii\db\ActiveRecord
         
     }
     
-    public static function getTypesForSidebar() {
-        $types = Product::find()->asArray()->select('DISTINCT `type`')->all();
-        
-        foreach($types as &$type) {
-            $type['count'] = Product::find()->where(['type' => $type['type']])->count();
-        }
-        
-        return $types;
-    }
-    
     public function getProductDetail($id) {
         $product = Product::find()->asArray()->where(['id' => $id])->one();
         

@@ -1,6 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 ?>
 
@@ -24,27 +25,24 @@ use yii\helpers\Url;
               <?php endforeach; ?>						  
 			 
      </section>
+     <?=Html::beginForm(['/site/submit'], 'post')?>
      <section  class="sky-form">
          <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Скидки</h4>
          <div class="row row1 scroll-pane">
              <div class="col col-4">
-                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
-             </div>
-             <div class="col col-4">
-                    <label class="checkbox"><input type="checkbox" name="discount"><i></i>40% - 50% (5)</label>
-                    <label class="checkbox"><input type="checkbox" name="discount"><i></i>30% - 20% (7)</label>
-                    <label class="checkbox"><input type="checkbox" name="discount"><i></i>10% - 5% (2)</label>
-                    <label class="checkbox"><input type="checkbox" name="discount"><i></i>Other(50)</label>
+                <?php foreach($discounts as $discount): ?>
+                    <label class="checkbox"><input type="checkbox" name="discount[]" value="<?=$discount['discount']?>"><i></i><?=$discount['discount']?> (<?=$discount['count']?>)</label>
+                <?php endforeach; ?>
              </div>
          </div>
      </section> 				 				 
        <section  class="sky-form">
             <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Price</h4>
                 <ul class="dropdown-menu1">
-                     <li><a href="">								               
-                    <div id="slider-range"></div>							
+                     <li>								               
+                    <div id="slider-range"></div>			
                     <input type="text" id="amount" name="price" style="border: 0; font-weight: NORMAL;   font-family: 'Arimo', sans-serif;" />
-                 </a></li>			
+                </li>			
               </ul>
        </section>
        <!---->
@@ -55,7 +53,7 @@ use yii\helpers\Url;
                     <div class="col col-4">
                         <?php foreach($types as $type): ?>
                             <?php if($type['type']): ?>
-                                <label class="checkbox"><input type="checkbox" name="type"><i></i><?=$type['type']?> (<?=$type['count']?>)</label>
+                                <label class="checkbox"><input type="checkbox" name="type[]" value="<?=$type['type']?>"><i></i><?=$type['type']?> (<?=$type['count']?>)</label>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
@@ -67,10 +65,12 @@ use yii\helpers\Url;
                     <div class="col col-4">
                         <?php foreach($brends as $brend): ?>
                             <?php if($brend['brand']): ?>
-                            <label class="checkbox"><input type="checkbox" name="brand"><i></i><?=$brend['brand']?></label>
+                            <label class="checkbox"><input type="checkbox" name="brand[]" value="<?=$brend['brand']?>"><i> </i><?=$brend['brand']?> (<?=$brend['count']?>)</label>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
        </section>		
+       <input type="submit">
+                    <?=Html::endForm()?>
     </div>				 
