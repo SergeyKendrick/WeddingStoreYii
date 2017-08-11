@@ -57,6 +57,11 @@ $(document).ready(function(){
 });
 
 $(window).load(function(){
+    if($.cookie("priceSlider")) {
+        $("#amount").val($.cookie("priceSlider"));
+    } else {
+            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    }
     $( "#slider-range" ).slider({
         range: true,
         min: 0,
@@ -64,11 +69,11 @@ $(window).load(function(){
         values: [ 0, 100000 ],
         slide: function( event, ui ) {  
             $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            
+            var value = "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ];
+            $.cookie("priceSlider", value);
         }
+        
     });
-    
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
 });
 
@@ -108,5 +113,24 @@ $('#getDiscount').click(function() {
    $('.form-discount').show('fast'); 
 });
 
+$(document).ready(function() {
+    if($.cookie("checkboxCookie") == null) return;
+    var chMap = $.cookie("checkboxCookie").split(',');
+    for (var i in chMap) {
+        $('#'+chMap[i]).prop("checked", true);
+    }
+    
+});
 
+$("input:checkbox").change(function() {
+    var ch = [];
+    $("input:checkbox").each(function() {
+        var $el = $(this);
+        if($el.prop("checked")) {
+            ch.push($el.attr("id"));
+        }
+    });
+    
+    $.cookie("checkboxCookie", ch.join(','));
+});
 

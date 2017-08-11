@@ -40,12 +40,12 @@ class Sidebar
                 'discount' => '40% - 50%',
             ],
             5 => [
-                'discount' => 'Остальные',
+                'discount' => 'Другие',
             ],
         ];
         
         foreach($items as &$item) {
-            if($item['discount'] != 'Остальные') {
+            if($item['discount'] != 'Другие') {
                 $discounts = str_replace('%', '', $item['discount']);
                 $discounts = explode(' - ', $discounts);
 
@@ -109,8 +109,12 @@ class Sidebar
             return '';
         }
         foreach ($discount as $item) {
+            if($item != 'Другие') {
             $params = explode(' - ', str_replace('%', '', $item));
             $sql = $sql . "(`discount` >= $params[0] AND `discount` <= $params[1]) ";
+            } else {
+                $sql = $sql . "(`discount` >= 50)";
+            }
             if(next($discount)) {
                 $sql = $sql . "OR ";
             }

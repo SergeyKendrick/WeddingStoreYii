@@ -30,8 +30,10 @@ use yii\helpers\Html;
          <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Скидки</h4>
          <div class="row row1 scroll-pane">
              <div class="col col-4">
+               <?php $i = 0; ?>
                 <?php foreach($discounts as $discount): ?>
-                    <label class="checkbox"><input type="checkbox" name="discount[]" value="<?=$discount['discount']?>"><i></i><?=$discount['discount']?> (<?=$discount['count']?>)</label>
+                    <?php $i++; ?>
+                    <label class="checkbox"><input id="ch<?=$i?>" type="checkbox" name="discount[]" value="<?=$discount['discount']?>"><i></i><?=$discount['discount']?> (<?=$discount['count']?>)</label>
                 <?php endforeach; ?>
              </div>
          </div>
@@ -40,7 +42,8 @@ use yii\helpers\Html;
             <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Price</h4>
                 <ul class="dropdown-menu1">
                      <li>								               
-                    <div id="slider-range"></div>			
+                    <div id="slider-range"></div>	
+                    <?php $i++; ?>		
                     <input type="text" id="amount" name="price" style="border: 0; font-weight: NORMAL;   font-family: 'Arimo', sans-serif;" />
                 </li>			
               </ul>
@@ -52,8 +55,9 @@ use yii\helpers\Html;
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
                         <?php foreach($types as $type): ?>
+                            <?php $i++; ?>
                             <?php if($type['type']): ?>
-                                <label class="checkbox"><input type="checkbox" name="type[]" value="<?=$type['type']?>"><i></i><?=$type['type']?> (<?=$type['count']?>)</label>
+                                <label class="checkbox"><input id="ch<?=$i?>" type="checkbox" name="type[]" value="<?=$type['type']?>"><i></i><?=$type['type']?> (<?=$type['count']?>)</label>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
@@ -64,13 +68,14 @@ use yii\helpers\Html;
                 <div class="row row1 scroll-pane">
                     <div class="col col-4">
                         <?php foreach($brends as $brend): ?>
+                            <?php $i++; ?>
                             <?php if($brend['brand']): ?>
-                            <label class="checkbox"><input type="checkbox" name="brand[]" value="<?=$brend['brand']?>"><i> </i><?=$brend['brand']?> (<?=$brend['count']?>)</label>
+                            <label class="checkbox"><input id="ch<?=$i?>" type="checkbox" name="brand[]" value="<?=$brend['brand']?>"><i> </i><?=$brend['brand']?> (<?=$brend['count']?>)</label>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
        </section>		
-       <input type="submit">
+       <input type="submit" value="Фильтровать" class = "item_add items" style="margin: 0 auto; display: block;">
                     <?=Html::endForm()?>
     </div>				 
