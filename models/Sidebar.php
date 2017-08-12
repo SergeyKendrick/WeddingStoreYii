@@ -75,12 +75,18 @@ class Sidebar
         $type = $data['type'];
         $brand = $data['brand'];
         
-        $discount = $this->sqlDiscount($discount);
         $price = $this->sqlPrice($price);
+        $discount = $this->sqlDiscount($discount);
         $type = $this->sqlType($type);
         $brand = $this->sqlBrand($brand);
         
-        $sql = $discount . $price . $type . $brand;
+        if(!$discount && !$type && !brand) {
+            $sql_param = 'AND (' . $discount . $this->equalTag($discount) . $type . $this->equalTag($type) . $brand . ')';
+        } else {
+            $sql_param;
+        }
+        
+        $sql = $price . $sql_param;
         
         $query = Product::find()->where($sql);
         $count = $query->count();
@@ -93,9 +99,6 @@ class Sidebar
         
         foreach($products as &$product) {
             $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
-            if($product['discount']) {
-                $product['price'] = $product['price'] - $product['price'] / 100 * $product['discount'];
-            }
         }
         
         $data['products'] = $products;
@@ -104,9 +107,15 @@ class Sidebar
         return $data;
     }
     
+    public function sqlPrice($price) {
+        $sql = "((`pricedown` >= $price[0] AND `pricedown` <= $price[1]) OR (`price` >= $price[0] AND `price` <= $price[1])) ";
+        
+        return $sql;
+    }
+    
     public function sqlDiscount($discount) {
         if(!$discount) {
-            return '';
+            return NULL;
         }
         foreach ($discount as $item) {
             if($item != 'Другие') {
@@ -116,27 +125,19 @@ class Sidebar
                 $sql = $sql . "(`discount` >= 50)";
             }
             if(next($discount)) {
-                $sql = $sql . "OR ";
+                $sql = $sql . " OR ";
             }
         }
-        
-        $sql = $sql . ' AND ';
-        
-        return $sql;
-    }
-    
-    public function sqlPrice($price) {
-        $sql = "(`price` >= $price[0] AND `price` <= $price[1]) ";
         
         return $sql;
     }
     
     public function sqlType($type) {
         if(!$type) {
-            return '';
+            return NULL;
         }
         
-        $sql = " AND (";
+        $sql = " (";
         
         foreach($type as $item) {
             $sql = $sql . "`type` = '$item'";
@@ -153,10 +154,10 @@ class Sidebar
     
     public function sqlBrand($brand) {
         if(!$brand) {
-            return '';
+            return NULL;
         }
         
-        $sql = " AND (";
+        $sql = " (";
         
         foreach($brand as $item) {
             $sql = $sql . "`brand` = '$item'";
@@ -169,5 +170,9 @@ class Sidebar
         $sql = $sql . ")";
         
         return $sql;
+    }
+    
+    public function equalTag($value) {
+        return ($value) ? 'OR' : '';
     }
 }

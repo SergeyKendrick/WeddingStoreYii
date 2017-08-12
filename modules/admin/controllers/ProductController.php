@@ -62,7 +62,7 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $model['category_id'] = $model->category->title;
         if($model['discount']) {
-            $model['price'] = $model['price'] - $model['price']/100*$model['discount']." (Основная цена: ".$model['price'].")";
+            $model['price'] = $model['pricedown']." (Основная цена: ".$model['price'].")";
         }
         
         $product = new Product;
@@ -107,7 +107,7 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveProduct()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

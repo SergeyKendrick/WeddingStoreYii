@@ -35,7 +35,6 @@ class Product extends \yii\db\ActiveRecord
     
     public $photo_preview;
     
-    public $pricedown;
     
     public $coupon;
     
@@ -50,7 +49,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'price', 'discount', 'rating'], 'integer'],
+            [['category_id', 'discount', 'rating'], 'integer'],
             [['description'], 'string'],
             [['sku', 'title', 'brand', 'pearl_type', 'color', 'base_material', 'precious_artif', 'model_number', 'occasion', 'type', 'ideal_for'], 'string', 'max' => 255],
         ];
@@ -128,6 +127,11 @@ class Product extends \yii\db\ActiveRecord
     
     public function saveProduct() {
         $this->date = date('Y-m-d');
+        if($this->discount && $this->discount != 0) {
+            $this->pricedown = $this->price - ($this->price / 100 * $this->discount);
+        } else {
+            $this->pricedown = NULL;
+        }
         return $this->save();
     }
     
@@ -149,9 +153,6 @@ class Product extends \yii\db\ActiveRecord
         
         foreach($products as &$product) {
             $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
-            if($product['discount']) {
-                $product['pricedown'] = $product['price'] - ($product['price'] * ($product['discount'] / 100));
-            }
         }
         
         return $products;
@@ -161,11 +162,7 @@ class Product extends \yii\db\ActiveRecord
         $products = Product::find()->asArray()->orderBy('date desc')->limit(10)->all();
         
         foreach($products as &$product) {
-            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
-            if($product['discount']) {
-                $product['pricedown'] = $product['price'] - ($product['price'] * ($product['discount'] / 100));
-            }
-            
+            $product['photo_preview'] = Product::getPreviewPhoto($product['id']);         
         }
         
         return $products;
@@ -189,7 +186,7 @@ class Product extends \yii\db\ActiveRecord
             $connection = \Yii::$app->db;
             $categories = $category_obj->getCategoriesForMenu($title);
 
-            $query = "SELECT `id`, `sku`, `title`, `price`, `discount` FROM product ";
+            $query = "SELECT `id`, `sku`, `title`, `price`, `pricedown`, `discount` FROM product ";
 
             foreach($categories as $category) {
                 if(!$i) {
@@ -215,7 +212,6 @@ class Product extends \yii\db\ActiveRecord
             $products = $connection->createCommand($query);
             $products = $products->queryAll();
             
-            
         } else {
             // build a DB query to get all articles with status = 1
             $query = Product::find();
@@ -231,9 +227,6 @@ class Product extends \yii\db\ActiveRecord
         
         foreach($products as &$product) {
             $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
-            if($product['discount']) {
-                $product['price'] = $product['price'] - $product['price'] / 100 * $product['discount'];
-            }
         }
         
         $data['products'] = $products;
@@ -272,9 +265,6 @@ class Product extends \yii\db\ActiveRecord
         
         foreach($products as &$product) {
             $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
-            if($product['discount']) {
-                $product['price'] = $product['price'] - $product['price'] / 100 * $product['discount'];
-            }
         }
         
         $data['products'] = $products;
@@ -290,12 +280,6 @@ class Product extends \yii\db\ActiveRecord
         $product['photo_preview'] = $this->getImagesArray($id); 
         foreach($product['photo_preview'] as &$photo) {
             $photo = ImageUpload::getFolderProductForView().$photo;
-        }
-        
-        if($product['discount']) {
-            $product['pricedown'] = $product['price'] - $product['price']/100*$product['discount'];
-        } else {
-            $product['pricedown'] = $product['price'];
         }
         
         $product['rating'] = $this->getRating($product['id']);

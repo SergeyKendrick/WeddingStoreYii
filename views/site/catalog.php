@@ -34,11 +34,16 @@ use yii\widgets\Pjax;
                         <div class="product-info-cust prt_name">
                             <h4><?=$product['title']?></h4>
                             <p>ID: <?=$product['sku']?></p>
-                            <span class="item_price">$<?=$product['price']?></span>
+                            <?php if($product['pricedown']): ?>
+                                <p><del>$<?=$product['price']?></del></p>
+                                <span class="item_price">$<?=$product['pricedown']?></span>
+                            <?php else: ?>
+                                <span class="item_price">$<?=$product['price']?></span>
+                            <?php endif; ?>
                             <form data-pjax="1" action="<?=Url::toRoute(['site/add-cart']) ?>">
                                 <input type="text" name="item_quantity" class="item_quantity" value="1" />
                                 <input type="hidden" name="product_id" class="item_quantity" value="<?=$product['id']?>" />
-                                <input type="hidden" name="price" class="item_quantity" value="<?=$product['price']?>" />
+                                <input type="hidden" name="price" class="item_quantity" value="<?=$product['pricedown']?>" />
                                 <input type="submit" class="item_add items" value="Добавить">
                             </form>
                         </div>													

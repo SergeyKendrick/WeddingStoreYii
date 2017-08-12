@@ -47,7 +47,7 @@ $(window).load(function() {
 
 $(document).ready(function(){
     $(".tab .single-bottom").hide();
-
+    $("#select-box").hide();
 
     $(".tab ul").click(function(){
         $(".tab .single-bottom").hide();
@@ -58,9 +58,8 @@ $(document).ready(function(){
 
 $(window).load(function(){
     if($.cookie("priceSlider")) {
-        $("#amount").val($.cookie("priceSlider"));
-    } else {
-            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        $("#select-box").show();
+        $("#select-box span#value").text($.cookie("priceSlider"));
     }
     $( "#slider-range" ).slider({
         range: true,
@@ -74,6 +73,7 @@ $(window).load(function(){
         }
         
     });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
 });
 

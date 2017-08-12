@@ -41,11 +41,15 @@ use yii\helpers\Html;
        <section  class="sky-form">
             <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Price</h4>
                 <ul class="dropdown-menu1">
-                     <li>								               
-                    <div id="slider-range"></div>	
-                    <?php $i++; ?>		
-                    <input type="text" id="amount" name="price" style="border: 0; font-weight: NORMAL;   font-family: 'Arimo', sans-serif;" />
-                </li>			
+                    <li>								               
+                        <div id="slider-range"></div>	
+                        <?php $i++; ?>		
+                        <input type="text" id="amount" name="price" style="border: 0; font-weight: NORMAL;   font-family: 'Arimo', sans-serif;" />
+                    </li>		
+                    <li id="select-box">
+                        <span>Выбрано:</span>
+                        <span id="value"></span>
+                    </li>
               </ul>
        </section>
        <!---->
