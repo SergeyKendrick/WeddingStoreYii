@@ -42,6 +42,7 @@ AdminAsset::register($this);
             ['label' => 'Категории', 'url' => ['/admin/category']],
             ['label' => 'Статьи', 'url' => ['/admin/article']],
             ['label' => 'Пользователи', 'url' => ['/admin/user']],
+            ['label' => 'Заказы', 'url' => ['/admin/orders']],
             ['label' => 'Купоны', 'url' => ['/admin/discounts']],
         ],
     ]);

@@ -62,7 +62,11 @@ use yii\widgets\Pjax;
 			 <h4 class="last-price">Итоговая цена</h4>
 			 <span class="total final">$<?=$total_price?></span>
 			 <div class="clearfix"></div>
-			 <a class="order" href="#">Оформить заказ</a>
+             <form id="createOrder" action="<?=Url::toRoute(['site/create-order'])?>" method="post">
+                 <input type="hidden" name="orders" value='<?=serialize($orders)?>' />
+                 <input type="hidden" name="<?=Yii::$app->request->csrfParam ?>" value="<?=Yii::$app->request->getCsrfToken()?>" />
+                 <input type="submit" class="order" value="Оформить заказ" />
+             </form>
 			 <div class="total-item">
 				 <h3>Опции</h3>
 				 <h4>Купоны</h4>

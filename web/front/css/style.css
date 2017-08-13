@@ -73,6 +73,30 @@ body a{
     
 }
 
+.header-order {
+    background-color: rgb(80,80,235);
+	padding:1em;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header-order:hover {
+    cursor: pointer;
+}
+
+ul.header-order li {
+	display:inline-block;
+	 width: 33%;
+	  float:left;
+	}
+ ul.header-order li span{
+	display:inline-block;
+	color:#fff;
+	font-size:1.2em;
+	 
+	  text-align:center;
+}
+
 .btn {
     padding: 0;
     vertical-align: baseline;

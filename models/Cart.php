@@ -30,6 +30,7 @@ class Cart extends \yii\db\ActiveRecord
             [['product_id'], 'integer'],
             [['user_id'], 'integer'],
             [['price'], 'integer'],
+            [['count'], 'integer'],
         ];
     }
 
@@ -48,17 +49,23 @@ class Cart extends \yii\db\ActiveRecord
     
     public function addToCart($user_id, $items_count, $product_id, $price) {
         
-        for($i = 0; $i < $items_count; $i++) {
+        if(!Cart::find()->where(['product_id' => $product_id, 'user_id' => $user_id])->one()) {
             $this->id = false;
             $this->isNewRecord = true;
             $this->user_id = $user_id;
             $this->product_id = $product_id;
             $this->price = $price;
-
-            $this->save();
-        }
-        
-        return true;
+            $this->count = $items_count;
+            
+            return $this->save(false);
+        } else {
+            $id = Cart::find()->select('id')->where(['user_id' => $user_id, 'product_id' => $product_id])->one();
+            $id = $id->id;
+            $order = Cart::findOne($id);
+            $order->count += $items_count;
+            
+            return $order->save(false);
+        } 
     }
     
     public function addToCartAfterLogin() {
@@ -73,6 +80,7 @@ class Cart extends \yii\db\ActiveRecord
                     $this->user_id = Yii::$app->user->id;
                     $this->product_id = $product['product_id'];
                     $this->price = $product['price'];
+                    $this->count = 
 
                     $this->save();
                 }
@@ -117,7 +125,7 @@ class Cart extends \yii\db\ActiveRecord
             return $session['products'];
     }
     
-    public function getOrders($session_order = null) {
+    public function getOrders($session_order = NULL) {
         if($session_order) {
             foreach($session_order as $order) {
                 $product = Product::find()->asArray()->select('`id`, `title`, `price`, `discount`')->where(['id' => $order['product_id']])->one();
@@ -145,22 +153,14 @@ class Cart extends \yii\db\ActiveRecord
         if($orders) {
         
             foreach($orders as &$order) {
-                $order['count'] = Cart::find()->where(['product_id' => $order['id']])->count();
+                $order['count'] = Cart::find()->select('count')->where(['product_id' => $order['id'], 'user_id' => Yii::$app->user->id])->one();
+                $order['count'] = $order['count']->count; 
                 $order['photo_preview'] = Product::getPreviewPhoto($order['id']);
                 if($order['discount']) {
                     $order['price'] = $order['price'] - $order['price'] / 100 * $order['discount'];
                     $order['total_price'] = $order['price'] * $order['count'];
                 } else {
                     $order['total_price'] = $order['price'] * $order['count'];
-                }
-            }
-
-            $elem = $orders[0]['id'];
-            for($i = 1; $i < Cart::getCountOrders(); $i++) {
-                if($elem == $orders[$i]['id']) {
-                    unset($orders[$i]);
-                } else {
-                    $elem = $orders[$i]['id'];
                 }
             }
             
@@ -217,7 +217,9 @@ class Cart extends \yii\db\ActiveRecord
         }
         
         $order = Cart::find()->where(['product_id' => $product_id])->one();
-        return $order->delete();
+        $order->count -= 1;
+        
+        return $order->save(false);
     }
     
     public function getDiscountProduct($id, $orders) {
@@ -239,7 +241,13 @@ class Cart extends \yii\db\ActiveRecord
                 return $sum;
             }
         }
-        $total = Cart::find()->where(['user_id' => Yii::$app->user->id])->sum('price');
+        $prices = Cart::find()->asArray()->select(' `price`, `count` ')->where(['user_id' => Yii::$app->user->id])->all();
+        $sum = 0;
+        
+        foreach($prices as $price) {
+            $total += $price['price'] * $price['count'];    
+        }
+
         return $total;
     }
     
@@ -262,7 +270,12 @@ class Cart extends \yii\db\ActiveRecord
             }
             return $sum;
         }
-        $count = Cart::find()->asArray()->select('product_id')->where(['user_id' => Yii::$app->user->id])->orderBy('product_id')->count();
+        $count_array = Cart::find()->asArray()->select('count')->where(['user_id' => Yii::$app->user->id])->orderBy('product_id')->all();
+        $count = 0;
+        
+        foreach($count_array as $count_element) {
+            $count += $count_element['count'];
+        }
         
         return $count;
     }

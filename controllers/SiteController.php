@@ -18,6 +18,7 @@ use app\models\Cart;
 use app\models\Discounts;
 use app\models\Article;
 use app\models\Sidebar;
+use app\models\Orders;
 use yii\data\Pagination;
 use yii\web\Cookie;
 use yii\web\CookieCollection;
@@ -240,12 +241,20 @@ class SiteController extends Controller
     }
     
     public function actionOffice() {
+        
+        if(Yii::$app->user->isGuest) {
+            $this->redirect('index');
+        }
+        
         $user = new User;
         $id = Yii::$app->user->id;
         $userInfo = $user->findByUserId($id);
         
+        $historyOrders = $user->getHistoryOrders($id);
+        
         return $this->render('office', [
             'userInfo' => $userInfo,
+            'historyOrders' => $historyOrders,
         ]);
     }
     
@@ -280,7 +289,7 @@ class SiteController extends Controller
             
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
-         
+        
         $cart->addToCart(Yii::$app->user->id, $item_quantity, $product_id, $price);
         
         return $this->redirect($_SERVER['HTTP_REFERER']);
@@ -309,6 +318,16 @@ class SiteController extends Controller
         return $this->render('article', [
             'article' => $article,
         ]);
+    }
+    
+    public function actionCreateOrder() {
+        $orders_obj = new Orders;
+        $order = Yii::$app->request->post();
+        $order = $order['orders'];
+        
+        $orders_obj->createOrder($order);
+        
+        $this->redirect('cart');
     }
     
 }
