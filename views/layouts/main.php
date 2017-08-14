@@ -38,7 +38,7 @@ AppAsset::register($this);
 				<ul>
 					<li><a href="#">Помощь</a></li>|
 					<li><a href="<?=Url::toRoute(['site/contact'])?>">Контакты</a></li>|
-					<li><a href="login.html">Отслеживание заказа</a></li>
+					<li><a href="<?=Url::toRoute(['site/search-order'])?>">Отслеживание заказа</a></li>
 				</ul>
 			</div>
 			<div class="top_left">

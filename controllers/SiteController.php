@@ -330,4 +330,19 @@ class SiteController extends Controller
         $this->redirect('cart');
     }
     
+    public function actionSearchOrder($order = NULL) {
+        $order_obj = new Orders;
+        
+        if(!$order) {
+            return $this->render('searchOrder');
+        }
+        
+        $order = $order_obj->getOrder($order);
+        
+        
+        return $this->render('searchOrder', [
+            'order' => $order,
+        ]);
+    }
+    
 }

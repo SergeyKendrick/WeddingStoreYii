@@ -36,6 +36,7 @@ class AppAsset extends AssetBundle
         'front/js/script.js',
         'front/js/jquery.flexisel.js',
         'front/js/jquery.cookie.js',
+        'front/js/jquery.pjax.js',
         
     ];
     

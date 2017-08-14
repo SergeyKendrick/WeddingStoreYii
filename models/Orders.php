@@ -50,6 +50,12 @@ class Orders extends \yii\db\ActiveRecord
         ];
     }
     
+    public function saveOrder() {
+        $this->date = date('Y:m:d h:i:s');
+        
+        return $this->save(false);
+    }
+    
     public function createOrder($products) {
         
         
@@ -94,6 +100,24 @@ class Orders extends \yii\db\ActiveRecord
         }
         
         return $string;
+    }
+    
+    public function getOrder($code) {
+        $order = Orders::find()->where(['order_number' => $code])->one();
+        
+        if($order) {
+            $result = "<ul class='header-order' style='text-align: center;'>
+                <li><span>$order->order_number</span></li>
+                <li><span>$order->date</span></li>		
+                <li><span>$order->status</span></li>
+                <div class='clearfix'> </div>
+            </ul>";
+        } else {
+            $result = "<h3>Такого заказа не существует.</h3>";
+        }
+        
+        
+        return $result;
     }
     
 }
