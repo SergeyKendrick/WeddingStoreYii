@@ -111,47 +111,50 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $orders = Orders::find()->asArray()->where(['user_id' => $user_id])->all();
         
         foreach($orders as &$order) {
-            $order['products'] = unserialize($order['products']);
-            
+            $order['products'] = unserialize($order['products']);   
+            $products = [];
             foreach($order['products'] as $product) {
                 $products[] = Product::find()->asArray()->select(' `id`, `title`, `price`, `pricedown` ')->where(['id' => $product])->one();
             }
-    
+            
             foreach($products as &$product) {
                 $product['photo_preview'] = Product::getPreviewPhoto($product['id']);
                 if($product['pricedown']) {
                     $product['price'] = $product['pricedown'];
+                } else {
+                    $product['pricedown'] = 0;
                 }
                 
                 $product['count'] = 0;
+                
                 
                 foreach($products as &$product_count) {
                     if($product['id'] == $product_count['id']) {
                         $product['count'] += 1;
                     }
-                }
+                }    
                 
-                for($i = 0; $i < 4; $i++) {
-                    $id = $products[$i]['id'];
-                    $is_product = FALSE;
-                    
-                    for($j = 0; $j < 4; $j++) {
-                        if($products[$j]['id'] == $id) {
-                            if($is_product) {
-                                unset($products[$j]);
-                            }
-                            $is_product = TRUE;
-                        }
-                        
-                    }
-                    
-                }
-                
-            }    
+                $product['totalPrice'] = $product['price'] * $product['count'];
+                $totalCount += $product['count'];
+            }
             
-            $order['products'] = $products;
+            for($i=0; $i < $totalCount; $i++) {
+                $is_product = FALSE;
+                $id = $products[$i]['id'];
+                
+                for($j=0; $j < $totalCount; $j++) {
+                    if($products[$j]['id'] == $id) {
+                        if($is_product) {
+                            unset($products[$j]);
+                        }
+                        $is_product = TRUE;
+                    }
+                }
+                
+            }
+    
+            $order['products'] = serialize($products);
         }
-
         return $orders;
 
     }

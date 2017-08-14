@@ -324,7 +324,7 @@ class SiteController extends Controller
         $orders_obj = new Orders;
         $order = Yii::$app->request->post();
         $order = $order['orders'];
-        
+            
         $orders_obj->createOrder($order);
         
         $this->redirect('cart');

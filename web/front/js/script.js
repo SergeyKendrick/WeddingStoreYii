@@ -134,3 +134,11 @@ $("input:checkbox").change(function() {
     $.cookie("checkboxCookie", ch.join(','));
 });
 
+$(document).ready(function() {
+    $('.in-order-history').hide();
+});
+
+$('.header-order').click(function() {
+    $('.in-order-history').slideUp('slow');
+    $(this).next().slideToggle('slow');
+});

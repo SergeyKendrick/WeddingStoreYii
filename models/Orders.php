@@ -56,7 +56,9 @@ class Orders extends \yii\db\ActiveRecord
         $products = unserialize($products);
         
         foreach($products as $product) {
-            $products_id[] = $product['id'];
+            for($i=0; $i < $product['count']; $i++) {
+                $products_id[] = $product['id'];
+            }
         }
         
         $products_id = serialize($products_id);
